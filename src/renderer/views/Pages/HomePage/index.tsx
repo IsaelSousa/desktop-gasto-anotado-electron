@@ -43,13 +43,8 @@ const HomePage = () => {
   }
 
   const updateDate = async (id: number, bit: number) => {
-    // await axiosInstance.patch(`/api/gastoanotado/update-data/${id}/bits/${bit}`)
-    //   .then(resp => {
-    //     if (resp.status === 200) {
-    //       getDate();
-    //     }
-    //   });
     window.electron.ipcRenderer.sendMessage('updateData', [id, bit]);
+    getDate();
   }
 
   const monthItems = (a: number) => data?.filter(d => new Date(d.duedate).getMonth() === a).sort();

@@ -16,10 +16,11 @@ class AppUpdater {
 
 let mainWindow: BrowserWindow | null = null;
 
+
 ipcMain.on('getData', async (event, arg) => {
   Gastos.getData().then(resp => {
     event.reply('getData', resp);
-  });
+  })
 });
 
 ipcMain.on('insertData', async (event, arg) => {
@@ -28,6 +29,14 @@ ipcMain.on('insertData', async (event, arg) => {
 
 ipcMain.on('updateData', async (event, arg) => {
   Gastos.updateData(arg[0], arg[1]);
+});
+
+ipcMain.on('editData', async (event, arg) => {
+  Gastos.editData(arg[0]);
+});
+
+ipcMain.on('deleteData', async (event, arg) => {
+  Gastos.deleteData(arg[0]);
 });
 
 
@@ -76,7 +85,7 @@ const createWindow = async () => {
     icon: getAssetPath('icon.png'),
     webPreferences: {
       preload: app.isPackaged
-        ? path.join(__dirname, 'preload.ts')
+        ? path.join(__dirname, 'preload.js')
         : path.join(__dirname, '../../.erb/dll/preload.js'),
     },
   });

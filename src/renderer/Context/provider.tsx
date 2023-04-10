@@ -63,11 +63,9 @@ export const Provider = (props: ContextProps) => {
       value: data.value,
       dueDate: data.duedate
     }
-    await axiosInstance.put('/api/gastoanotado/edit-data', object).then(resp => {
-      if (resp.status === 200) {
-        getDate();
-      }
-    });
+
+    window.electron.ipcRenderer.sendMessage('editData', [object]);
+    getDate();
   }
 
   const deleteAnnotations = (id: number) => {
@@ -89,11 +87,8 @@ export const Provider = (props: ContextProps) => {
   }
 
   const deleteData = async (id: number | null) => {
-    await axiosInstance.delete(`/api/gastoanotado/delete-data/${id}`).then(resp => {
-      if (resp.status === 200) {
-        getDate();
-      }
-    })
+    window.electron.ipcRenderer.sendMessage('deleteData', [id]);
+    getDate();
   }
 
   const state = { 

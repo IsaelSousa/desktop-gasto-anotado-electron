@@ -47,7 +47,7 @@ const configuration: webpack.Configuration = {
             options: {
               modules: true,
               sourceMap: true,
-              importLoaders: 1,
+              importLoaders: 1
             },
           },
           'sass-loader',
