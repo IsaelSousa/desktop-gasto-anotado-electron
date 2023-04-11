@@ -22,3 +22,8 @@ export type EditData = {
     value: string;
     dueDate: string;
 }
+
+export type InsertAnnotations = {
+    id: number;
+    annotations: string;
+}

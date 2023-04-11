@@ -13,12 +13,14 @@ import { AnnotationsDrawer } from '../../Drawer/AnnotationsDrawer';
 import RefreshComponent from '../../../components/RefreshComponent';
 import { MonthComponent } from '../../../components/MonthComponent';
 import GraphComponent from '../../../components/GraphComponent';
+import ImportExportJsonComponent from 'renderer/components/ImportExportJsonComponent';
+import { LoaderComponent } from 'renderer/components/LoaderComponent';
 
 const HomePage = () => {
   const [toggleAdd, setToggleAdd] = useState<boolean>(false);
   const [annotationsID, setAnnotationsID] = useState<number>(0);
 
-  const { data, getDate, deleteData, setToggleAnnotations, setToggleEdit, setEditDrawer, dialogtitleState, setDialog } = useProvider();
+  const { data, getDate, deleteData, setToggleAnnotations, setToggleEdit, setEditDrawer, dialogtitleState, setDialog, loading } = useProvider();
 
   useEffect(() => {
     getDate();
@@ -76,6 +78,7 @@ const HomePage = () => {
         <NavBarComponent onClickAdd={toggleAddButton} />
         <RefreshComponent onClickAdd={refreshButton} />
         <GraphComponent />
+        <ImportExportJsonComponent />
       </NavBarContainer>
 
       <InsertDrawer 
@@ -90,7 +93,7 @@ const HomePage = () => {
 
       <DataContainer>
         {
-          uniqueMonthData()?.map((x: number) => (
+          !loading ? uniqueMonthData()?.map((x: number) => (
             <MonthComponent key={x.toPrecision()} label={DateToString(x + 1)}>
               {monthItems(x)?.map(a => (
                 <SpendingComponent key={a.id}
@@ -122,7 +125,9 @@ const HomePage = () => {
               ))}
               <h3>Total R$ {calcVALUEs(x)}</h3>
             </MonthComponent>
-          ))
+          )) 
+          :
+          <LoaderComponent/>
         }
       </DataContainer>
       <Dialog open={dialogtitleState.show}>

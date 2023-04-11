@@ -1,4 +1,3 @@
-import React from 'react';
 import { GraphContainer } from './styles';
 import ButtonComponent from '../ButtonComponent';
 import { BsFileEarmarkBarGraph } from 'react-icons/bs';
@@ -10,7 +9,7 @@ type NavBarProps = {
 function GraphComponent (props: NavBarProps) {
   return (
     <GraphContainer>
-      <ButtonComponent buttonIcon={<BsFileEarmarkBarGraph color='#FFF' size={25} />} colorItem='#3eb331' onClick={props.onClickAdd} />
+      <ButtonComponent title='Gráficos' buttonIcon={<BsFileEarmarkBarGraph color='#FFF' size={25} />} colorItem='#3eb331' onClick={props.onClickAdd} />
     </GraphContainer>
   )
 }

@@ -43,6 +43,7 @@ export type contextType = {
   toggleInsert: boolean | undefined;
   editDrawer: EditDrawerProps;
   dialogtitleState: DialogProps;
+  loading: boolean;
   getDate: () => Promise<void>;
   editDate: (data: IDataTypeToEdit) => Promise<void>;
   insertAnnotations: (idRegister: number, annotations: string) => Promise<void>;

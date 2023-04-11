@@ -5,6 +5,7 @@ import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 import Gastos from './model/store/gastos';
+import Annotations from './model/store/anotacoes';
 
 class AppUpdater {
   constructor() {
@@ -16,6 +17,19 @@ class AppUpdater {
 
 let mainWindow: BrowserWindow | null = null;
 
+ipcMain.on('getAnnotations', async (event, arg) => {
+  Annotations.getAnnotations(arg[0]).then(resp => {
+    event.reply('getAnnotations', resp);
+  })
+});
+
+ipcMain.on('insertAnnotations', async (event, arg) => {
+  Annotations.insertAnnotations(arg[0], arg[1]);
+});
+
+ipcMain.on('deleteAnnotations', async (event, arg) => {
+  Annotations.deleteAnnotations(arg[0]);
+});
 
 ipcMain.on('getData', async (event, arg) => {
   Gastos.getData().then(resp => {

@@ -49,7 +49,9 @@ export const Provider = (props: ContextProps) => {
     setLoading(true);
     window.electron.ipcRenderer.once('getData', (arg: any) => {
       setData(arg);
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+      }, 500);
     });
   
     window.electron.ipcRenderer.sendMessage('getData', []);
@@ -68,22 +70,21 @@ export const Provider = (props: ContextProps) => {
     getDate();
   }
 
+  const getAnnotations = async (idNumber: number) => {
+      window.electron.ipcRenderer.once('getAnnotations', (arg: any) => {
+        setDataAnnotations(arg);
+      });
+      window.electron.ipcRenderer.sendMessage('getAnnotations', [idNumber]);
+  }
+
   const deleteAnnotations = (id: number) => {
-    axiosInstance.delete(`/api/gastoanotado/delete-annotations/${id}`);
+    window.electron.ipcRenderer.sendMessage('deleteAnnotations', [id]);
+    getAnnotations(id);
   }
 
   const insertAnnotations = async (idRegister: number, annotations: string) => {
-    if (idRegister != null && annotations != null) {
-      await axiosInstance.post('/api/gastoanotado/insert-annotations', { id: idRegister, annotations: annotations })
-        .then(() => console.log('Inserido com sucesso!'));
-    }
-  }
-
-  const getAnnotations = async (idNumber: number) => {
-    await axiosInstance.post('/api/gastoanotado/list-annotations', { id: idNumber })
-      .then(res => {
-        setDataAnnotations(res.data);
-      });
+    window.electron.ipcRenderer.sendMessage('insertAnnotations', [idRegister, annotations]);
+    getAnnotations(idRegister);
   }
 
   const deleteData = async (id: number | null) => {
