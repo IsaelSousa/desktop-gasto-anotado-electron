@@ -107,7 +107,7 @@ export const Provider = (props: ContextProps) => {
     setToggleInsert,
     dialogtitleState,
     setDialog,
-    loading
+    loading,
    }
   
   const actions = {

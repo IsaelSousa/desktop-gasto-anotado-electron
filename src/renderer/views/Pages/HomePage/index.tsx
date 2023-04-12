@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import NavBarComponent from '../../../components/NavBarComponent';
-import { HomePageContainer, DataContainer, NavBarContainer } from './styles';
+import { HomePageContainer, DataContainer, NavBarContainer, ButtonContainer, DividerContainer } from './styles';
 import { DateToString } from '../../../services/DateToString';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from '@mui/material';
 import { DateFormater } from '../../../services/DateFormater';
-import { axiosInstance } from '../../../services/api';
 import { InsertDrawer } from '../../Drawer/InsertDrawer';
 import { useProvider } from '../../../Context/provider';
 import { EditDrawer } from '../../Drawer/EditDrawer';
@@ -13,14 +12,25 @@ import { AnnotationsDrawer } from '../../Drawer/AnnotationsDrawer';
 import RefreshComponent from '../../../components/RefreshComponent';
 import { MonthComponent } from '../../../components/MonthComponent';
 import GraphComponent from '../../../components/GraphComponent';
-import ImportExportJsonComponent from 'renderer/components/ImportExportJsonComponent';
 import { LoaderComponent } from 'renderer/components/LoaderComponent';
+import { FaFileExport, FaFileImport } from 'react-icons/fa';
+import ButtonComponent from 'renderer/components/ButtonComponent';
 
 const HomePage = () => {
   const [toggleAdd, setToggleAdd] = useState<boolean>(false);
   const [annotationsID, setAnnotationsID] = useState<number>(0);
 
-  const { data, getDate, deleteData, setToggleAnnotations, setToggleEdit, setEditDrawer, dialogtitleState, setDialog, loading } = useProvider();
+  const { 
+    data,
+    getDate,
+    deleteData,
+    setToggleAnnotations,
+    setToggleEdit,
+    setEditDrawer,
+    dialogtitleState,
+    setDialog,
+    loading,
+  } = useProvider();
 
   useEffect(() => {
     getDate();
@@ -78,7 +88,13 @@ const HomePage = () => {
         <NavBarComponent onClickAdd={toggleAddButton} />
         <RefreshComponent onClickAdd={refreshButton} />
         <GraphComponent />
-        <ImportExportJsonComponent />
+
+        <DividerContainer>
+         
+        </DividerContainer>
+
+        <ImportButton />
+        <ExportButton />
       </NavBarContainer>
 
       <InsertDrawer 
@@ -159,3 +175,23 @@ const HomePage = () => {
 }
 
 export default HomePage;
+
+type ButtonProps = {
+  onClickAdd?: any;
+}
+
+const ImportButton = (props: ButtonProps) => {
+  return (
+      <ButtonContainer>
+          <ButtonComponent buttonIcon={<FaFileImport color='#FFF' size={25} />} onClick={props.onClickAdd} colorItem='#3eb331' title='Importar Dados' />
+      </ButtonContainer>
+  );
+}
+
+const ExportButton = (props: ButtonProps) => {
+  return (
+      <ButtonContainer>
+          <ButtonComponent buttonIcon={<FaFileExport color='#FFF' size={25} />} onClick={props.onClickAdd} colorItem='#3eb331' title='Exportar Dados' />
+      </ButtonContainer>
+  );
+}
