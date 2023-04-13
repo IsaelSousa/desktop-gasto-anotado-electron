@@ -15,6 +15,14 @@ export type InsertData = {
     dueDate: string;
 }
 
+export type ImportFile = {
+    title: string;
+    description: string;
+    paidout: string;
+    value: string;
+    dueDate: string;
+}
+
 export type EditData = {
     id: number;
     title: string;

@@ -15,6 +15,7 @@ import GraphComponent from '../../../components/GraphComponent';
 import { LoaderComponent } from 'renderer/components/LoaderComponent';
 import { FaFileExport, FaFileImport } from 'react-icons/fa';
 import ButtonComponent from 'renderer/components/ButtonComponent';
+import { ImportDrawer } from 'renderer/views/Drawer/ImportDrawer';
 
 const HomePage = () => {
   const [toggleAdd, setToggleAdd] = useState<boolean>(false);
@@ -30,6 +31,8 @@ const HomePage = () => {
     dialogtitleState,
     setDialog,
     loading,
+    importDrawer,
+    setImportDrawer
   } = useProvider();
 
   useEffect(() => {
@@ -48,6 +51,10 @@ const HomePage = () => {
 
   const toggleAddButton = () => {
     toggleAdd ? setToggleAdd(false) : setToggleAdd(true);
+  }
+
+  const toggleImportDrawer = () => {
+    importDrawer ? setImportDrawer(false) : setImportDrawer(true);
   }
 
   const refreshButton = () => {
@@ -70,14 +77,15 @@ const HomePage = () => {
   }
 
   const calcVALUEs = (month: number) => {
-    let sumData = 0
+    let sumData: Array<number> = [];
     data?.forEach(x => {
       const d = new Date(x.duedate).getMonth();
       if (d === month) {
-        sumData = sumData + Number(x.value);
+          var y: number = +x.value.replace(',', '.');
+          sumData.push(y);
       }
     })
-    return sumData.toFixed(2);
+    return sumData.reduce((partial, a) => partial + a, 0).toFixed(2);
   }
 
   return (
@@ -90,11 +98,10 @@ const HomePage = () => {
         <GraphComponent />
 
         <DividerContainer>
-         
         </DividerContainer>
 
-        <ImportButton />
-        <ExportButton />
+        <ImportButton onClickAdd={toggleImportDrawer} />
+        <ExportButton onClickAdd={() => console.log('aks')} />
       </NavBarContainer>
 
       <InsertDrawer 
@@ -106,6 +113,8 @@ const HomePage = () => {
         annotationsID={annotationsID} />
 
       <EditDrawer />
+
+      <ImportDrawer />
 
       <DataContainer>
         {

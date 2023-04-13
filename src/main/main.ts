@@ -6,6 +6,8 @@ import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 import Gastos from './model/store/gastos';
 import Annotations from './model/store/anotacoes';
+import fs from 'fs';
+import { ImportFile } from './model/gastosType';
 
 class AppUpdater {
   constructor() {
@@ -53,6 +55,22 @@ ipcMain.on('deleteData', async (event, arg) => {
   Gastos.deleteData(arg[0]);
 });
 
+ipcMain.on('importFile', async (event, arg) => {
+  fs.readFile(arg[0], 'utf8', (err, data) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+  
+    const jsonData = JSON.parse(data);
+    
+    const jsonArray: Array<ImportFile> = jsonData['gastos'];
+
+    jsonArray.forEach(element => {
+      Gastos.ImportFile(element);
+    });
+  });
+});
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');

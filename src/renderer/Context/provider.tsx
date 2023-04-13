@@ -24,6 +24,8 @@ export const Provider = (props: ContextProps) => {
   const [toggleAnnotations, setToggleAnnotations] = useState<boolean>();
   const [toggleInsert, setToggleInsert] = useState<boolean>();
 
+  const [importDrawer, setImportDrawer] = useState<boolean>(false);
+
   const [editDrawer, setEditDrawer] = useState<EditDrawerProps>({
     id: 0,
     title: '',
@@ -108,6 +110,8 @@ export const Provider = (props: ContextProps) => {
     dialogtitleState,
     setDialog,
     loading,
+    importDrawer,
+    setImportDrawer
    }
   
   const actions = {

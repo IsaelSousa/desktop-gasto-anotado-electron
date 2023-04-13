@@ -1,5 +1,5 @@
 import { db } from "../../database/index";
-import { EditData, InsertData } from "../gastosType";
+import { EditData, ImportFile, InsertData } from "../gastosType";
 
 class Gastos {
 
@@ -20,7 +20,20 @@ class Gastos {
     insertData(item: InsertData) {
         return new Promise((resolve, reject) => {
             db.serialize(() => {
+                console.log(item.dueDate);
                 const query = `INSERT INTO GASTOS ( title, description, paidout, value, duedate ) VALUES ( '${item.title}', '${item.description}', '0', '${item.value}', '${item.dueDate}' )`
+                db.run(query, (err: any) => {
+                    if (err)
+                        reject(err);
+                });
+            });
+        });
+    }
+
+    ImportFile(item: ImportFile) {
+        return new Promise((resolve, reject) => {
+            db.serialize(() => {
+                const query = `INSERT INTO GASTOS ( title, description, paidout, value, duedate ) VALUES ( '${item.title}', '${item.description}', '${item.paidout}', '${item.value}', '${item.dueDate}' )`
                 db.run(query, (err: any) => {
                     if (err)
                         reject(err);

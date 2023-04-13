@@ -1,6 +1,10 @@
 import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
 
-export type Channels = 'getData' | 'insertData' | 'updateData' | 'editData' | 'deleteData' | 'getAnnotations' | 'insertAnnotations' | 'deleteAnnotations';
+export type Channels = 'getData' | 'insertData' 
+| 'updateData' | 'editData' 
+| 'deleteData' | 'getAnnotations' 
+| 'insertAnnotations' | 'deleteAnnotations' 
+| 'importFile';
 
 const electronHandler = {
   ipcRenderer: {

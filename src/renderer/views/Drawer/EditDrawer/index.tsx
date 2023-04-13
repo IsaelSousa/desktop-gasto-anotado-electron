@@ -22,7 +22,7 @@ export const EditDrawer = () => {
     setTitle(editDrawer.title);
     setDescription(editDrawer.description);
     setValue(editDrawer.value);
-    setDueDate(editDrawer.duedate);
+    setDueDate(editDrawer.duedate.replace('T00:00:00.000Z', ''));
     setDialog({
       id: editDrawer.id,
       show: false
