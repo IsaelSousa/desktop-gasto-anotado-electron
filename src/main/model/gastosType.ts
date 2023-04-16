@@ -1,5 +1,5 @@
 
-export type Gastos = {
+export type GastosType = {
     id: number;
     title: string;
     description: string;
@@ -20,7 +20,7 @@ export type ImportFile = {
     description: string;
     paidout: string;
     value: string;
-    dueDate: string;
+    duedate: string;
 }
 
 export type EditData = {

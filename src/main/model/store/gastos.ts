@@ -30,14 +30,27 @@ class Gastos {
         });
     }
 
-    ImportFile(item: ImportFile) {
+    importFile(item: ImportFile) {
         return new Promise((resolve, reject) => {
             db.serialize(() => {
-                const query = `INSERT INTO GASTOS ( title, description, paidout, value, duedate ) VALUES ( '${item.title}', '${item.description}', '${item.paidout}', '${item.value}', '${item.dueDate}' )`
+                const query = `INSERT INTO GASTOS ( title, description, paidout, value, duedate ) VALUES ( '${item.title}', '${item.description}', '${item.paidout}', '${item.value}', '${item.duedate}' )`
                 db.run(query, (err: any) => {
                     if (err)
                         reject(err);
                 });
+            });
+        });
+    }
+
+    exportFile() {
+        return new Promise((resolve, reject) => {
+            db.serialize(() => {
+                const query = "SELECT TITLE, DESCRIPTION, PAIDOUT, VALUE, DUEDATE FROM GASTOS";
+                db.all(query, (err: any, rows: unknown) => {
+                    if (err)
+                        reject(err);
+                    resolve(rows);
+                })
             });
         });
     }

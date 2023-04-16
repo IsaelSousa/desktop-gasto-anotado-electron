@@ -51,9 +51,7 @@ export const Provider = (props: ContextProps) => {
     setLoading(true);
     window.electron.ipcRenderer.once('getData', (arg: any) => {
       setData(arg);
-      setTimeout(() => {
-        setLoading(false);
-      }, 500);
+      setLoading(false);
     });
   
     window.electron.ipcRenderer.sendMessage('getData', []);

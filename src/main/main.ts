@@ -7,7 +7,7 @@ import { resolveHtmlPath } from './util';
 import Gastos from './model/store/gastos';
 import Annotations from './model/store/anotacoes';
 import fs from 'fs';
-import { ImportFile } from './model/gastosType';
+import { GastosType, ImportFile } from './model/gastosType';
 
 class AppUpdater {
   constructor() {
@@ -63,12 +63,22 @@ ipcMain.on('importFile', async (event, arg) => {
     }
   
     const jsonData = JSON.parse(data);
-    
-    const jsonArray: Array<ImportFile> = jsonData['gastos'];
+    const jsonArray: Array<ImportFile> = jsonData;
 
     jsonArray.forEach(element => {
-      Gastos.ImportFile(element);
+      Gastos.importFile(element);
     });
+  });
+});
+
+ipcMain.on('exportFile', async () => {
+  Gastos.exportFile()
+  .then((data: any) => {
+    const items: Array<GastosType> = data;
+    if (items.length > 0) {
+      const jsonFile = JSON.stringify(data);
+      fs.writeFile('C:\\Users\\toxic\\Downloads\\gasto.json', jsonFile, (err) => {});
+    }
   });
 });
 

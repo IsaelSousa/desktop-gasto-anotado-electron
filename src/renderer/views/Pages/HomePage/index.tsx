@@ -57,6 +57,10 @@ const HomePage = () => {
     importDrawer ? setImportDrawer(false) : setImportDrawer(true);
   }
 
+  const toggleExportButton = () => {
+    window.electron.ipcRenderer.sendMessage('exportFile', []);
+  }
+
   const refreshButton = () => {
     getDate();
   }
@@ -101,7 +105,7 @@ const HomePage = () => {
         </DividerContainer>
 
         <ImportButton onClickAdd={toggleImportDrawer} />
-        <ExportButton onClickAdd={() => console.log('aks')} />
+        <ExportButton onClickAdd={toggleExportButton} />
       </NavBarContainer>
 
       <InsertDrawer 

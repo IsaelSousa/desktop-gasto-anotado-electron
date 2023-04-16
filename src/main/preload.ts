@@ -4,7 +4,7 @@ export type Channels = 'getData' | 'insertData'
 | 'updateData' | 'editData' 
 | 'deleteData' | 'getAnnotations' 
 | 'insertAnnotations' | 'deleteAnnotations' 
-| 'importFile';
+| 'importFile' | 'exportFile';
 
 const electronHandler = {
   ipcRenderer: {

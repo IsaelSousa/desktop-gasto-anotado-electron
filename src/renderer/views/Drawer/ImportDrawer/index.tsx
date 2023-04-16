@@ -1,14 +1,10 @@
 import { Drawer } from "@mui/material";
 import { useProvider } from "../../../Context/provider";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useState } from "react";
 
 export const ImportDrawer = () => {
     const { importDrawer, setImportDrawer, getDate } = useProvider();
     const [file, setFile] = useState<File>();
-
-    useEffect(() => {
-        console.log({file});
-    }, [file]);
 
     const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
@@ -20,8 +16,10 @@ export const ImportDrawer = () => {
         if (!file)
             return;
 
-        window.electron.ipcRenderer.sendMessage('importFile', [file.path]);
-        getDate();
+        if (file) {
+            window.electron.ipcRenderer.sendMessage('importFile', [file.path]);
+            getDate();
+        } 
       }
 
     return (
