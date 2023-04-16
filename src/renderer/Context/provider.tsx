@@ -24,6 +24,8 @@ export const Provider = (props: ContextProps) => {
   const [toggleAnnotations, setToggleAnnotations] = useState<boolean>();
   const [toggleInsert, setToggleInsert] = useState<boolean>();
 
+  const [importDrawer, setImportDrawer] = useState<boolean>(false);
+
   const [editDrawer, setEditDrawer] = useState<EditDrawerProps>({
     id: 0,
     title: '',
@@ -63,37 +65,31 @@ export const Provider = (props: ContextProps) => {
       value: data.value,
       dueDate: data.duedate
     }
-    await axiosInstance.put('/api/gastoanotado/edit-data', object).then(resp => {
-      if (resp.status === 200) {
-        getDate();
-      }
-    });
-  }
 
-  const deleteAnnotations = (id: number) => {
-    axiosInstance.delete(`/api/gastoanotado/delete-annotations/${id}`);
-  }
-
-  const insertAnnotations = async (idRegister: number, annotations: string) => {
-    if (idRegister != null && annotations != null) {
-      await axiosInstance.post('/api/gastoanotado/insert-annotations', { id: idRegister, annotations: annotations })
-        .then(() => console.log('Inserido com sucesso!'));
-    }
+    window.electron.ipcRenderer.sendMessage('editData', [object]);
+    getDate();
   }
 
   const getAnnotations = async (idNumber: number) => {
-    await axiosInstance.post('/api/gastoanotado/list-annotations', { id: idNumber })
-      .then(res => {
-        setDataAnnotations(res.data);
+      window.electron.ipcRenderer.once('getAnnotations', (arg: any) => {
+        setDataAnnotations(arg);
       });
+      window.electron.ipcRenderer.sendMessage('getAnnotations', [idNumber]);
+  }
+
+  const deleteAnnotations = (id: number) => {
+    window.electron.ipcRenderer.sendMessage('deleteAnnotations', [id]);
+    getAnnotations(id);
+  }
+
+  const insertAnnotations = async (idRegister: number, annotations: string) => {
+    window.electron.ipcRenderer.sendMessage('insertAnnotations', [idRegister, annotations]);
+    getAnnotations(idRegister);
   }
 
   const deleteData = async (id: number | null) => {
-    await axiosInstance.delete(`/api/gastoanotado/delete-data/${id}`).then(resp => {
-      if (resp.status === 200) {
-        getDate();
-      }
-    })
+    window.electron.ipcRenderer.sendMessage('deleteData', [id]);
+    getDate();
   }
 
   const state = { 
@@ -111,7 +107,9 @@ export const Provider = (props: ContextProps) => {
     setToggleInsert,
     dialogtitleState,
     setDialog,
-    loading
+    loading,
+    importDrawer,
+    setImportDrawer
    }
   
   const actions = {

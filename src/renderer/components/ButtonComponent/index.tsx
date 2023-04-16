@@ -5,11 +5,12 @@ type ButtonProps = {
   buttonIcon: any;
   onClick?: any;
   colorItem: string;
+  title?: string;
 }
 
-function ButtonComponent ({ buttonIcon, onClick, colorItem }: ButtonProps) {
+function ButtonComponent ({ buttonIcon, onClick, colorItem, title }: ButtonProps) {
   return (
-    <ButtonContainer painter={colorItem} onClick={onClick}>
+    <ButtonContainer painter={colorItem} onClick={onClick} title={title}>
       {buttonIcon}
     </ButtonContainer>
   )

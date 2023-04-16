@@ -21,7 +21,7 @@ export const AnnotationsDrawer = ({
   annotationsID
 }: AnnotationsProps) => {
 
-  const [annotationsAdd, setAnnotationsAdd] = useState<string>();
+  const [annotationsAdd, setAnnotationsAdd] = useState<string>("");
 
   const { 
     deleteAnnotations, 

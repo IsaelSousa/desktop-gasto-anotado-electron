@@ -36,16 +36,22 @@ export const InsertDrawer = ({
         const addMonth = new Date(dueDate)
 
         if (i === 1) {
-          addMonth.setMonth(addMonth.getMonth())
+          addMonth.setMonth(addMonth.getMonth() + 1)
         } else if (i >= 2) {
           addMonth.setMonth(addMonth.getMonth() + i)
         }
+
+        const fullYear = addMonth.getFullYear();
+        const month = (addMonth.getMonth() + 1).toString().padStart(2, '0');
+        const day = (addMonth.getDate() + 1).toString().padStart(2, '0');
+
+        const data = `${fullYear}-${month}-${day}`;
 
         const object = {
           title: titleData,
           description,
           value,
-          dueDate: addMonth
+          dueDate: data
         }
 
         window.electron.ipcRenderer.sendMessage('insertData', [object]);

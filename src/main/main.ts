@@ -5,6 +5,9 @@ import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 import Gastos from './model/store/gastos';
+import Annotations from './model/store/anotacoes';
+import fs from 'fs';
+import { GastosType, ImportFile } from './model/gastosType';
 
 class AppUpdater {
   constructor() {
@@ -16,10 +19,24 @@ class AppUpdater {
 
 let mainWindow: BrowserWindow | null = null;
 
+ipcMain.on('getAnnotations', async (event, arg) => {
+  Annotations.getAnnotations(arg[0]).then(resp => {
+    event.reply('getAnnotations', resp);
+  })
+});
+
+ipcMain.on('insertAnnotations', async (event, arg) => {
+  Annotations.insertAnnotations(arg[0], arg[1]);
+});
+
+ipcMain.on('deleteAnnotations', async (event, arg) => {
+  Annotations.deleteAnnotations(arg[0]);
+});
+
 ipcMain.on('getData', async (event, arg) => {
   Gastos.getData().then(resp => {
     event.reply('getData', resp);
-  });
+  })
 });
 
 ipcMain.on('insertData', async (event, arg) => {
@@ -30,6 +47,40 @@ ipcMain.on('updateData', async (event, arg) => {
   Gastos.updateData(arg[0], arg[1]);
 });
 
+ipcMain.on('editData', async (event, arg) => {
+  Gastos.editData(arg[0]);
+});
+
+ipcMain.on('deleteData', async (event, arg) => {
+  Gastos.deleteData(arg[0]);
+});
+
+ipcMain.on('importFile', async (event, arg) => {
+  fs.readFile(arg[0], 'utf8', (err, data) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+  
+    const jsonData = JSON.parse(data);
+    const jsonArray: Array<ImportFile> = jsonData;
+
+    jsonArray.forEach(element => {
+      Gastos.importFile(element);
+    });
+  });
+});
+
+ipcMain.on('exportFile', async () => {
+  Gastos.exportFile()
+  .then((data: any) => {
+    const items: Array<GastosType> = data;
+    if (items.length > 0) {
+      const jsonFile = JSON.stringify(data);
+      fs.writeFile('C:\\Users\\toxic\\Downloads\\gasto.json', jsonFile, (err) => {});
+    }
+  });
+});
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
@@ -76,7 +127,7 @@ const createWindow = async () => {
     icon: getAssetPath('icon.png'),
     webPreferences: {
       preload: app.isPackaged
-        ? path.join(__dirname, 'preload.ts')
+        ? path.join(__dirname, 'preload.js')
         : path.join(__dirname, '../../.erb/dll/preload.js'),
     },
   });

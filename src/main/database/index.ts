@@ -1,11 +1,8 @@
-import sqlite3 from 'sqlite3';
-import path from 'path';
 import fs from 'fs';
+import sqlite3 from 'sqlite3'
 
-if (!fs.existsSync(path.resolve(__dirname, '../../../../db.sqlite'))) {
-    fs.writeFile(path.resolve(__dirname, '../../../../db.sqlite'), '',(err) => {
-        fs.writeFile('log', String(err?.message), () => {});
-    })
-}
+const DB_PATH = "C:\\Users\\toxic\\OneDrive\\Documentos\\GastoAnotadoDB\\gt.sqlite";
 
-export const db = new sqlite3.Database(path.resolve(__dirname, '../../../../db.sqlite'));
+fs.writeFile('log', DB_PATH, () => {});
+
+export const db = new sqlite3.Database(DB_PATH);
