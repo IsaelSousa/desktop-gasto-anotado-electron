@@ -16,6 +16,7 @@ import { LoaderComponent } from 'renderer/components/LoaderComponent';
 import { FaFileExport, FaFileImport } from 'react-icons/fa';
 import ButtonComponent from 'renderer/components/ButtonComponent';
 import { ImportDrawer } from 'renderer/views/Drawer/ImportDrawer';
+import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
   const [toggleAdd, setToggleAdd] = useState<boolean>(false);
@@ -38,6 +39,8 @@ const HomePage = () => {
   useEffect(() => {
     getDate();
   }, []);
+
+  const navigate = useNavigate();
 
   const uniqueMonthData = () => {
     const uniqueMonth: number[] = []
@@ -63,6 +66,10 @@ const HomePage = () => {
 
   const refreshButton = () => {
     getDate();
+  }
+
+  const graphButton = () => {
+    navigate('/graph')
   }
 
   const updateDate = async (id: number, bit: number) => {
@@ -99,7 +106,7 @@ const HomePage = () => {
       <NavBarContainer>
         <NavBarComponent onClickAdd={toggleAddButton} />
         <RefreshComponent onClickAdd={refreshButton} />
-        <GraphComponent />
+        <GraphComponent onClickAdd={graphButton} />
 
         <DividerContainer>
         </DividerContainer>
