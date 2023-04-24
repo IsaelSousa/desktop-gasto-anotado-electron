@@ -24,6 +24,8 @@ export const Provider = (props: ContextProps) => {
   const [toggleAnnotations, setToggleAnnotations] = useState<boolean>();
   const [toggleInsert, setToggleInsert] = useState<boolean>();
 
+  const [importDrawer, setImportDrawer] = useState<boolean>(false);
+
   const [editDrawer, setEditDrawer] = useState<EditDrawerProps>({
     id: 0,
     title: '',
@@ -49,9 +51,7 @@ export const Provider = (props: ContextProps) => {
     setLoading(true);
     window.electron.ipcRenderer.once('getData', (arg: any) => {
       setData(arg);
-      setTimeout(() => {
-        setLoading(false);
-      }, 500);
+      setLoading(false);
     });
   
     window.electron.ipcRenderer.sendMessage('getData', []);
@@ -107,7 +107,9 @@ export const Provider = (props: ContextProps) => {
     setToggleInsert,
     dialogtitleState,
     setDialog,
-    loading
+    loading,
+    importDrawer,
+    setImportDrawer
    }
   
   const actions = {

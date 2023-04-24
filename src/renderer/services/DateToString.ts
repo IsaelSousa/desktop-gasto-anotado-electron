@@ -23,5 +23,7 @@ export const DateToString = (month: number) => {
     return 'Novembro'
   } else if (month === 12) {
     return 'Dezembro'
+  } else {
+    return '';
   }
 }

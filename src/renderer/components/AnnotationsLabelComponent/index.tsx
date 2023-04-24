@@ -11,7 +11,11 @@ type AnnotationsLabelProps = {
 export const AnnotationsLabelComponent = ({ text, onClick }: AnnotationsLabelProps) => {
   return (
     <div style={{
-      'display': 'flex', 'flexDirection': 'row', 'alignItems': 'center', 'maxWidth': '400px', 'width': '400px'
+      'display': 'flex',
+      'flexDirection': 'row',
+      'alignItems': 'center',
+      'maxWidth': '400px',
+      'width': '400px'
     }} >
       <Container>
         {text}

@@ -1,6 +1,23 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
+    display: flex;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+
+    width: 100%;
+    height: calc(100vh + 100%);
+    overflow: auto;
+
+    justify-content: center;
+    align-items: center;
+`;
+
+export const Loader = styled.div`
     width: 100px;
     height: 100px;
     border-radius: 50%;

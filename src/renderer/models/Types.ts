@@ -44,6 +44,7 @@ export type contextType = {
   editDrawer: EditDrawerProps;
   dialogtitleState: DialogProps;
   loading: boolean;
+  importDrawer: boolean | undefined;
   getDate: () => Promise<void>;
   editDate: (data: IDataTypeToEdit) => Promise<void>;
   insertAnnotations: (idRegister: number, annotations: string) => Promise<void>;
@@ -56,4 +57,5 @@ export type contextType = {
   setToggleInsert: React.Dispatch<React.SetStateAction<boolean | undefined>>;
   setEditDrawer: React.Dispatch<React.SetStateAction<EditDrawerProps>>;
   setDialog: React.Dispatch<React.SetStateAction<DialogProps>>;
+  setImportDrawer: React.Dispatch<React.SetStateAction<boolean | undefined>>;
 }

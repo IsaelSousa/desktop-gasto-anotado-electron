@@ -21,7 +21,7 @@ export const AnnotationsDrawer = ({
   annotationsID
 }: AnnotationsProps) => {
 
-  const [annotationsAdd, setAnnotationsAdd] = useState<string>();
+  const [annotationsAdd, setAnnotationsAdd] = useState<string>("");
 
   const { 
     deleteAnnotations, 
@@ -50,7 +50,7 @@ export const AnnotationsDrawer = ({
       <label style={{ fontWeight: 'bold', marginTop: 20, marginBottom: 5, width: 400, display: 'flex', justifyContent: 'center' }}>Anotações</label>
       <div style={{ margin: '1rem' }} >
         {
-          dataAnnotations.length > 0 ? dataAnnotations.map((x, i) => (
+          dataAnnotations ? dataAnnotations.map((x, i) => (
             <div key={i}>
               <AnnotationsLabelComponent onClick={() => {
                 setTimeout(() => {
