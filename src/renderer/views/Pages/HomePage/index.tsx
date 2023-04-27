@@ -17,6 +17,8 @@ import { FaFileExport, FaFileImport } from 'react-icons/fa';
 import ButtonComponent from 'renderer/components/ButtonComponent';
 import { ImportDrawer } from 'renderer/views/Drawer/ImportDrawer';
 import { useNavigate } from 'react-router-dom';
+import ConfigComponent from 'renderer/components/ConfigComponent';
+import { ConfigDrawer } from 'renderer/views/Drawer/ConfigDrawer';
 
 const HomePage = () => {
   const [toggleAdd, setToggleAdd] = useState<boolean>(false);
@@ -33,7 +35,8 @@ const HomePage = () => {
     setDialog,
     loading,
     importDrawer,
-    setImportDrawer
+    setImportDrawer,
+    setConfigDrawer
   } = useProvider();
 
   useEffect(() => {
@@ -62,6 +65,10 @@ const HomePage = () => {
 
   const toggleExportButton = () => {
     window.electron.ipcRenderer.sendMessage('exportFile', []);
+  }
+
+  const toggleConfigButton = () => {
+    setConfigDrawer(true);
   }
 
   const refreshButton = () => {
@@ -113,6 +120,7 @@ const HomePage = () => {
 
         <ImportButton onClickAdd={toggleImportDrawer} />
         <ExportButton onClickAdd={toggleExportButton} />
+        <ConfigComponent onClickAdd={toggleConfigButton} />
       </NavBarContainer>
 
       <InsertDrawer 
@@ -126,6 +134,8 @@ const HomePage = () => {
       <EditDrawer />
 
       <ImportDrawer />
+
+      <ConfigDrawer />
 
       <DataContainer>
         {

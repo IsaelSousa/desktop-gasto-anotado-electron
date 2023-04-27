@@ -26,6 +26,8 @@ export const Provider = (props: ContextProps) => {
 
   const [importDrawer, setImportDrawer] = useState<boolean>(false);
 
+  const [configDrawer, setConfigDrawer] = useState<boolean>(false);
+
   const [editDrawer, setEditDrawer] = useState<EditDrawerProps>({
     id: 0,
     title: '',
@@ -109,7 +111,9 @@ export const Provider = (props: ContextProps) => {
     setDialog,
     loading,
     importDrawer,
-    setImportDrawer
+    setImportDrawer,
+    configDrawer,
+    setConfigDrawer
    }
   
   const actions = {
