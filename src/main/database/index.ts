@@ -1,9 +1,19 @@
 import fs from 'fs';
-import sqlite3 from 'sqlite3'
 
-// const DB_PATH = "C:\\Users\\toxic\\OneDrive\\Documentos\\GastoAnotadoDB\\gt.sqlite";
-const DB_PATH = "D:\\GastoAnotadoDB\\gt.sqlite"
+const DB_PATH = "D:\\GastoAnotadoDB\\gt.sqlite";
 
-fs.writeFile('log', DB_PATH, () => {});
-
-export const db = new sqlite3.Database(DB_PATH);
+export const fileShow = () => {
+    return new Promise((resolve, reject) => {
+        let posicao = __dirname.indexOf("desktop-gasto-anotado-electron");
+        if (posicao != -1) {
+            let path = __dirname.substring(0, posicao + "desktop-gasto-anotado-electron".length);
+            fs.readFile(`${path}\\config`, 'utf-8', (err, data) => {
+                if (err) {
+                    fs.writeFile(`${path}\\config`, `${path}\\config`, () => {});
+                    reject(err);
+                }
+                resolve(data);
+            });
+        }
+    });
+}
