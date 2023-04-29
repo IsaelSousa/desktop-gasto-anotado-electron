@@ -8,6 +8,7 @@ import Gastos from './model/store/gastos';
 import Annotations from './model/store/anotacoes';
 import fs from 'fs';
 import { GastosType, ImportFile } from './model/gastosType';
+import { fileShow, fileWrite } from './database';
 
 class AppUpdater {
   constructor() {
@@ -36,7 +37,7 @@ ipcMain.on('deleteAnnotations', async (event, arg) => {
 ipcMain.on('getData', async (event, arg) => {
   Gastos.getData().then(resp => {
     event.reply('getData', resp);
-  })
+  });
 });
 
 ipcMain.on('insertData', async (event, arg) => {
@@ -53,6 +54,7 @@ ipcMain.on('editData', async (event, arg) => {
 
 ipcMain.on('deleteData', async (event, arg) => {
   Gastos.deleteData(arg[0]);
+  Annotations.deleteAnnotationsPerGastos(arg[0]);
 });
 
 ipcMain.on('importFile', async (event, arg) => {
@@ -77,9 +79,19 @@ ipcMain.on('exportFile', async () => {
     const items: Array<GastosType> = data;
     if (items.length > 0) {
       const jsonFile = JSON.stringify(data);
-      fs.writeFile('C:\\Users\\toxic\\Downloads\\gasto.json', jsonFile, (err) => {});
+      fs.writeFile(`C:\\Users\\${process.env.USERNAME}\\Downloads\\gasto.json`, jsonFile, (err) => {});
     }
   });
+});
+
+ipcMain.on('showConfigPath', async (event, arg) => {
+  fileShow().then((resp) => {
+    event.reply('showConfigPath', resp);
+  });
+});
+
+ipcMain.on('showConfigPath', async (event, arg) => {
+  fileWrite(arg[0]);
 });
 
 if (process.env.NODE_ENV === 'production') {

@@ -29,7 +29,6 @@ class Gastos {
             .then((resp: any) => {
                 const db = new sqlite3.Database(resp);
                 db.serialize(() => {
-                    console.log(item.dueDate);
                     const query = `INSERT INTO GASTOS ( title, description, paidout, value, duedate ) VALUES ( '${item.title}', '${item.description}', '0', '${item.value}', '${item.dueDate}' )`
                     db.run(query, (err: any) => {
                         if (err)
