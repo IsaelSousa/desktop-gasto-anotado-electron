@@ -12,6 +12,12 @@ export const InputText = styled.input`
     padding: 5px;
 `;
 
+export const Title = styled.a`
+    font-size: 12pt;
+    font-weight: bold;
+    margin: 5px;
+`;
+
 export const ButtonSave = styled.button`
     margin-top: 1rem;
     background-color: #3eb331;

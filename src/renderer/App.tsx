@@ -3,10 +3,24 @@ import styled from 'styled-components'
 import { Provider } from './Context/provider'
 import { GraphPage } from './views/Pages/GraphPage';
 import HomePage from './views/Pages/HomePage';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   return (
     <Container>
+      <ToastContainer
+        position='top-left'
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme='light'
+        style={{ background: 'none' }}
+      />
       <Router>
         <Provider>
           <Routes>
