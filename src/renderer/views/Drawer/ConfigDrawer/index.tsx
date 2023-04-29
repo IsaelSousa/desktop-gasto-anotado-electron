@@ -1,15 +1,26 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Drawer } from '@mui/material';
 import { useProvider } from '../../../Context/provider';
 import { ButtonSave, Container, InputText } from "./styles";
 
 export const ConfigDrawer = () => {
     const { configDrawer, setConfigDrawer } = useProvider();
-    const [path, setPath] = useState<string>(JSON.parse(JSON.stringify(localStorage.getItem("path"))));
+    const [path, setPath] = useState<string>("");
+
+    const getConfigPath = () => {
+        window.electron.ipcRenderer.once('showConfigPath', (arg: any) => {
+            setPath(arg);
+        });
+        window.electron.ipcRenderer.sendMessage('showConfigPath', []);
+    }
 
     const handleSavePath = () => {
-        localStorage.setItem("path", path);
+        window.electron.ipcRenderer.sendMessage('showConfigPath', [path]);
     }
+
+    useEffect(() => {
+        getConfigPath();
+    }, []);
 
     return (
         <Drawer

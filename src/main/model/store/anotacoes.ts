@@ -55,5 +55,20 @@ class Annotations {
         });
     }
 
+    deleteAnnotationsPerGastos(idGasto: number) {
+        return new Promise((resolve, reject) => {
+            fileShow()
+            .then((resp: any) => {
+                const db = new sqlite3.Database(resp);
+                db.serialize(() => {
+                    const query = `DELETE FROM ANOTACOES WHERE ID_GASTO = ${idGasto}`;
+                    db.run(query, (err) => {
+                        reject(err);
+                    });
+                });
+            });
+        });
+    }
+
 }
 export default new Annotations();

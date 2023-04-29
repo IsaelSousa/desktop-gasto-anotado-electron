@@ -1,7 +1,5 @@
 import fs from 'fs';
 
-const DB_PATH = "D:\\GastoAnotadoDB\\gt.sqlite";
-
 export const fileShow = () => {
     return new Promise((resolve, reject) => {
         let posicao = __dirname.indexOf("desktop-gasto-anotado-electron");
@@ -14,6 +12,23 @@ export const fileShow = () => {
                 }
                 resolve(data);
             });
+        }
+    });
+}
+
+export const fileWrite = (filename: string) => {
+    return new Promise((resolve, reject) => {
+        let posicao = __dirname.indexOf("desktop-gasto-anotado-electron");
+        if (posicao != -1) {
+            let path = __dirname.substring(0, posicao + "desktop-gasto-anotado-electron".length);
+
+            fs.writeFile(`${path}\\config`, filename, (err) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(true);
+                }
+            })
         }
     });
 }
