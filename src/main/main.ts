@@ -49,7 +49,9 @@ ipcMain.on('updateData', async (event, arg) => {
 });
 
 ipcMain.on('editData', async (event, arg) => {
-  Gastos.editData(arg[0]);
+  Gastos.editData(arg[0]).then(() => {
+    event.reply('editData', true);
+  });
 });
 
 ipcMain.on('deleteData', async (event, arg) => {

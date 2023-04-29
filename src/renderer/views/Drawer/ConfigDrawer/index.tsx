@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Drawer } from '@mui/material';
 import { useProvider } from '../../../Context/provider';
-import { ButtonSave, Container, InputText } from "./styles";
+import { ButtonSave, Container, InputText, Title } from './styles';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const ConfigDrawer = () => {
     const { configDrawer, setConfigDrawer } = useProvider();
@@ -16,6 +18,7 @@ export const ConfigDrawer = () => {
 
     const handleSavePath = () => {
         window.electron.ipcRenderer.sendMessage('showConfigPath', [path]);
+        toast.success('Configuração Salva');
     }
 
     useEffect(() => {
@@ -32,6 +35,7 @@ export const ConfigDrawer = () => {
             style={{ padding: 50 }}
         >
             <Container>
+                <Title>Arquivo do banco de dados</Title>
                 <InputText value={path} onChange={e => setPath(e.target.value)}  />
                 <ButtonSave onClick={handleSavePath} >Salvar</ButtonSave>
             </Container>

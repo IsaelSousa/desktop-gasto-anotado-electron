@@ -19,6 +19,7 @@ import { ImportDrawer } from 'renderer/views/Drawer/ImportDrawer';
 import { useNavigate } from 'react-router-dom';
 import ConfigComponent from 'renderer/components/ConfigComponent';
 import { ConfigDrawer } from 'renderer/views/Drawer/ConfigDrawer';
+import { toast } from 'react-toastify';
 
 const HomePage = () => {
   const [toggleAdd, setToggleAdd] = useState<boolean>(false);
@@ -65,6 +66,7 @@ const HomePage = () => {
 
   const toggleExportButton = () => {
     window.electron.ipcRenderer.sendMessage('exportFile', []);
+    toast.success('Exportado com sucesso!');
   }
 
   const toggleConfigButton = () => {
@@ -73,6 +75,7 @@ const HomePage = () => {
 
   const refreshButton = () => {
     getDate();
+    toast.success('Dados atualizados');
   }
 
   const graphButton = () => {
@@ -193,6 +196,7 @@ const HomePage = () => {
               id: null
             });
             setToggleEdit(false);
+            toast.success('Registro excluído!');
           }} >Sim</Button>
           <Button onClick={() => setDialog({
             show: false,
