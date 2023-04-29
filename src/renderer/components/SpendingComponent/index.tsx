@@ -8,7 +8,7 @@ type SpendingType = {
   id?: number;
   title: string;
   description: string;
-  paidout?: number;
+  paidout?: number | undefined;
   value: string;
   dueDate: string;
   onClick?: unknown;

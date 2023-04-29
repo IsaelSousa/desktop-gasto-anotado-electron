@@ -56,7 +56,9 @@ export const InsertDrawer = ({
 
         window.electron.ipcRenderer.sendMessage('insertData', [object]);
       }
-      getDate();
+      setTimeout(() => {
+        getDate();
+      }, 1500);
     } else if (parc <= 1) {
       const object = {
         title,
@@ -65,7 +67,9 @@ export const InsertDrawer = ({
         dueDate
       }
       window.electron.ipcRenderer.sendMessage('insertData', [object]);
-      getDate();
+      setTimeout(() => {
+        getDate();
+      }, 1500);
     }
   }
 

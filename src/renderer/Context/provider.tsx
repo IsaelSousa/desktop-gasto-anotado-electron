@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { contextType, DialogProps, EditDrawerProps, IAnnotations, IDataType, IDataTypeToEdit,  } from '../models/Types';
-import { axiosInstance } from '../services/api';
+import { toast } from 'react-toastify';
 
 interface ContextProps {
   children: React.ReactNode
@@ -24,9 +24,9 @@ export const Provider = (props: ContextProps) => {
   const [toggleAnnotations, setToggleAnnotations] = useState<boolean>();
   const [toggleInsert, setToggleInsert] = useState<boolean>();
 
-  const [importDrawer, setImportDrawer] = useState<boolean>(false);
+  const [importDrawer, setImportDrawer] = useState<boolean | undefined>(false);
 
-  const [configDrawer, setConfigDrawer] = useState<boolean>(false);
+  const [configDrawer, setConfigDrawer] = useState<boolean | undefined>(false);
 
   const [editDrawer, setEditDrawer] = useState<EditDrawerProps>({
     id: 0,
@@ -55,7 +55,6 @@ export const Provider = (props: ContextProps) => {
       setData(arg);
       setLoading(false);
     });
-  
     window.electron.ipcRenderer.sendMessage('getData', []);
   }
 
@@ -68,8 +67,16 @@ export const Provider = (props: ContextProps) => {
       dueDate: data.duedate
     }
 
+    window.electron.ipcRenderer.on('editData', (resp) => {
+      if (resp) {
+        toast.success('Registro editado com sucesso.');
+      }
+    });
     window.electron.ipcRenderer.sendMessage('editData', [object]);
-    getDate();
+
+    setTimeout(() => {
+      getDate();
+    }, 1500);
   }
 
   const getAnnotations = async (idNumber: number) => {
@@ -77,21 +84,32 @@ export const Provider = (props: ContextProps) => {
         setDataAnnotations(arg);
       });
       window.electron.ipcRenderer.sendMessage('getAnnotations', [idNumber]);
+      setTimeout(() => {
+        getDate();
+      }, 1500);
   }
 
   const deleteAnnotations = (id: number) => {
     window.electron.ipcRenderer.sendMessage('deleteAnnotations', [id]);
     getAnnotations(id);
+    setTimeout(() => {
+      getDate();
+    }, 1500);
   }
 
   const insertAnnotations = async (idRegister: number, annotations: string) => {
     window.electron.ipcRenderer.sendMessage('insertAnnotations', [idRegister, annotations]);
     getAnnotations(idRegister);
+    setTimeout(() => {
+      getDate();
+    }, 1500);
   }
 
   const deleteData = async (id: number | null) => {
     window.electron.ipcRenderer.sendMessage('deleteData', [id]);
-    getDate();
+    setTimeout(() => {
+      getDate();
+    }, 1500);
   }
 
   const state = { 

@@ -1,6 +1,7 @@
 import { Drawer } from "@mui/material";
 import { useProvider } from "../../../Context/provider";
 import { ChangeEvent, useState } from "react";
+import { Button, Container, Title } from "./styles";
 
 export const ImportDrawer = () => {
     const { importDrawer, setImportDrawer, getDate } = useProvider();
@@ -32,15 +33,19 @@ export const ImportDrawer = () => {
             }}
             style={{ padding: 50 }}
         >
-            <div style={{ display: 'flex', marginTop: '5rem', flexDirection: 'column' }}>
+            <Container style={{ display: 'flex', marginTop: '5rem', flexDirection: 'column' }}>
+                <Title>Importar Registros</Title>
                 <input 
                 type="file"
                 name="Import Json"
                 id="importFile"
                 onChange={handleFileChange}
+                style={{
+                    cursor: 'pointer'
+                }}
                 />
-                <button onClick={handleClick} >Send</button>
-            </div>
+                <Button onClick={handleClick} >Send</Button>
+            </Container>
         </Drawer>
         </>
     )
