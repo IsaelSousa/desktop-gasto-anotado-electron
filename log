@@ -1,6 +1,0 @@
-[Error] - 01/05/2023 12:02:58 - Message: TypeError [ERR_INVALID_ARG_TYPE]: The "data" argument must be of type string or an instance of Buffer, TypedArray, or DataView. Received undefined
-[Error] - 01/05/2023 12:02:58 - Message: TypeError [ERR_INVALID_ARG_TYPE]: The "data" argument must be of type string or an instance of Buffer, TypedArray, or DataView. Received undefined
-[Error] - 01/05/2023 12:09:52 - Message: showConfigPath TypeError [ERR_INVALID_ARG_TYPE]: The "data" argument must be of type string or an instance of Buffer, TypedArray, or DataView. Received undefined
-[Error] - 01/05/2023 12:09:52 - Message: showConfigPath TypeError [ERR_INVALID_ARG_TYPE]: The "data" argument must be of type string or an instance of Buffer, TypedArray, or DataView. Received undefined
-[Error] - 01/05/2023 12:10:42 - Message: showConfigPath(2) TypeError [ERR_INVALID_ARG_TYPE]: The "data" argument must be of type string or an instance of Buffer, TypedArray, or DataView. Received undefined
-[Error] - 01/05/2023 12:10:42 - Message: showConfigPath(2) TypeError [ERR_INVALID_ARG_TYPE]: The "data" argument must be of type string or an instance of Buffer, TypedArray, or DataView. Received undefined
