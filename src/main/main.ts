@@ -9,6 +9,7 @@ import Annotations from './model/store/anotacoes';
 import fs from 'fs';
 import { GastosType, ImportFile } from './model/gastosType';
 import { fileShow, fileWrite } from './database';
+import LogServer from './service/logService';
 
 class AppUpdater {
   constructor() {
@@ -24,45 +25,73 @@ ipcMain.on('getAnnotations', async (event, arg) => {
   Annotations.getAnnotations(arg[0]).then(resp => {
     event.reply('getAnnotations', resp);
   })
+  .catch(err => {
+    LogServer.LogFile('getAnnotations ' + err, 'Error');
+  });
 });
 
 ipcMain.on('insertAnnotations', async (event, arg) => {
-  Annotations.insertAnnotations(arg[0], arg[1]);
+  Annotations.insertAnnotations(arg[0], arg[1])
+  .catch(err => {
+    LogServer.LogFile('insertAnnotations ' + err, 'Error');
+  });
 });
 
 ipcMain.on('deleteAnnotations', async (event, arg) => {
-  Annotations.deleteAnnotations(arg[0]);
+  Annotations.deleteAnnotations(arg[0])
+  .catch(err => {
+    LogServer.LogFile('deleteAnnotations '+err, 'Error');
+  });
 });
 
 ipcMain.on('getData', async (event, arg) => {
   Gastos.getData().then(resp => {
     event.reply('getData', resp);
+  })
+  .catch(err => {
+    LogServer.LogFile('getData '+err, 'Error');
   });
 });
 
 ipcMain.on('insertData', async (event, arg) => {
-  Gastos.insertData(arg[0]);
+  Gastos.insertData(arg[0])
+  .catch(err => {
+    LogServer.LogFile('insertData '+err, 'Error');
+  });
 });
 
 ipcMain.on('updateData', async (event, arg) => {
-  Gastos.updateData(arg[0], arg[1]);
+  Gastos.updateData(arg[0], arg[1])
+  .catch(err => {
+    LogServer.LogFile('updateData '+err, 'Error');
+  });
 });
 
 ipcMain.on('editData', async (event, arg) => {
   Gastos.editData(arg[0]).then(() => {
     event.reply('editData', true);
+  })
+  .catch(err => {
+    LogServer.LogFile('editData '+err, 'Error');
   });
 });
 
 ipcMain.on('deleteData', async (event, arg) => {
-  Gastos.deleteData(arg[0]);
-  Annotations.deleteAnnotationsPerGastos(arg[0]);
+  Gastos.deleteData(arg[0])
+  .catch(err => {
+    LogServer.LogFile(err, 'Error');
+  });
+  Annotations.deleteAnnotationsPerGastos(arg[0])
+  .catch(err => {
+    LogServer.LogFile('deleteData '+err, 'Error');
+  });
 });
 
 ipcMain.on('importFile', async (event, arg) => {
   fs.readFile(arg[0], 'utf8', (err, data) => {
     if (err) {
       console.error(err);
+      LogServer.LogFile(err.message, 'Error');
       return;
     }
   
@@ -70,7 +99,10 @@ ipcMain.on('importFile', async (event, arg) => {
     const jsonArray: Array<ImportFile> = jsonData;
 
     jsonArray.forEach(element => {
-      Gastos.importFile(element);
+      Gastos.importFile(element)
+      .catch(err => {
+        LogServer.LogFile('importFile '+err, 'Error');
+      });
     });
   });
 });
@@ -83,17 +115,30 @@ ipcMain.on('exportFile', async () => {
       const jsonFile = JSON.stringify(data);
       fs.writeFile(`C:\\Users\\${process.env.USERNAME}\\Downloads\\gasto.json`, jsonFile, (err) => {});
     }
+  })
+  .catch(err => {
+    LogServer.LogFile('exportFile '+err, 'Error');
   });
 });
 
 ipcMain.on('showConfigPath', async (event, arg) => {
   fileShow().then((resp) => {
     event.reply('showConfigPath', resp);
+  })
+  .catch(err => {
+    LogServer.LogFile('showConfigPath(1) '+err, 'Error');
   });
 });
 
 ipcMain.on('showConfigPath', async (event, arg) => {
-  fileWrite(arg[0]);
+  fileWrite(arg[0])
+  .catch(err => {
+    LogServer.LogFile('showConfigPath(2) '+err, 'Error');
+  });
+});
+
+ipcMain.on('Log', async (event, arg) => {
+  LogServer.LogFile(arg[0], arg[1]);
 });
 
 if (process.env.NODE_ENV === 'production') {
