@@ -10,7 +10,7 @@ type NavBarProps = {
 function RefreshComponent (props: NavBarProps) {
   return (
     <RefreshContainer>
-      <ButtonComponent title='Atualizar dados' buttonIcon={<BiRefresh color='#FFF' size={25} />} colorItem='#3eb331' onClick={props.onClickAdd} />
+      <ButtonComponent title='Atualizar dados' buttonIcon={<BiRefresh color='#FFF' size={25} />} onClick={props.onClickAdd} />
     </RefreshContainer>
   )
 }

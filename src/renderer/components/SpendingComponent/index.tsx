@@ -3,6 +3,7 @@ import ButtonComponent from '../ButtonComponent';
 import { SpendingContainer, SpendingFloatLeft, SpendingFloatRight } from './styles';
 import { AiFillEdit, AiFillCheckCircle } from 'react-icons/ai';
 import { HiAnnotation } from 'react-icons/hi';
+import { SpendingButtonComponent } from '../SpendingButtonComponent';
 
 type SpendingType = {
   id?: number;
@@ -17,7 +18,8 @@ type SpendingType = {
   onClickAnnotations?: unknown;
 }
 
-function SpendingComponent({ title, description, paidout, value, dueDate, onClick, onClickEdit, onClickAnnotations }: SpendingType) {
+function SpendingComponent({ title, description, paidout = 0, value, dueDate, onClick, onClickEdit, onClickAnnotations }: SpendingType) {
+  
   function toBool(bit: number) {
     const splitDate = dueDate.split('/');
     const actualDate = new Date(`${splitDate[1]}/${splitDate[0]}/${splitDate[2]}`);
@@ -35,30 +37,30 @@ function SpendingComponent({ title, description, paidout, value, dueDate, onClic
   return (
     <SpendingContainer colorBackground={toBool(paidout)}>
       <SpendingFloatLeft colorBackground={toBool(paidout)} >
-        <strong style={{ backgroundColor: 'inherit' }} >{title}</strong>
+        <strong style={{ backgroundColor: 'inherit' }}>{title}</strong>
         <br />
         {description}
       </SpendingFloatLeft>
       <SpendingFloatRight colorBackground={toBool(paidout)} >
         <div style={{ marginRight: '3rem', textAlign: 'center' }}>
-          <strong style={{ backgroundColor: 'inherit' }} >Valor</strong>
+          <strong style={{ backgroundColor: 'inherit' }}>Valor</strong>
           <br />
           R$ {value}
         </div>
         <br />
         <div>
-          <strong style={{ backgroundColor: 'inherit' }} >Vencimento</strong>
+          <strong style={{ backgroundColor: 'inherit' }}>Vencimento</strong>
           <br />
           {dueDate.toString()}
         </div>
         <div style={{ marginLeft: '1rem' }}>
-          <ButtonComponent colorItem='#0099ff' buttonIcon={<AiFillCheckCircle color='white' size={16} />} onClick={onClick} />
+          <SpendingButtonComponent buttonIcon={<AiFillCheckCircle color='white' size={16} />} onClick={onClick} />
         </div>
         <div style={{ display: 'flex', flexDirection: 'row' }}>
-          <ButtonComponent onClick={onClickEdit} colorItem='#0099ff' buttonIcon={<AiFillEdit color='white' size={16} />} />
+          <SpendingButtonComponent onClick={onClickEdit} buttonIcon={<AiFillEdit color='white' size={16} />} />
         </div>
         <div style={{ display: 'flex', flexDirection: 'row' }}>
-          <ButtonComponent onClick={onClickAnnotations}  colorItem='#0099ff' buttonIcon={<HiAnnotation color='white' size={16} />} />
+          <SpendingButtonComponent onClick={onClickAnnotations} buttonIcon={<HiAnnotation color='white' size={16} />} />
         </div>
       </SpendingFloatRight>
     </SpendingContainer>

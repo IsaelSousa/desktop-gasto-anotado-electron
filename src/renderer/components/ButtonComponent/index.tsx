@@ -4,13 +4,12 @@ import { ButtonContainer } from './styles';
 type ButtonProps = {
   buttonIcon: any;
   onClick?: any;
-  colorItem: string;
   title?: string;
 }
 
-function ButtonComponent ({ buttonIcon, onClick, colorItem, title }: ButtonProps) {
+function ButtonComponent ({ buttonIcon, onClick, title }: ButtonProps) {
   return (
-    <ButtonContainer painter={colorItem} onClick={onClick} title={title}>
+    <ButtonContainer onClick={onClick} title={title}>
       {buttonIcon}
     </ButtonContainer>
   )
