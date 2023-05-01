@@ -22,7 +22,7 @@ export const fileWrite = (filename: string) => {
         if (posicao != -1) {
             let path = __dirname.substring(0, posicao + "desktop-gasto-anotado-electron".length);
 
-            fs.writeFile(`${path}\\config`, filename, (err) => {
+            fs.writeFile(`${path}\\config`, String(filename), (err) => {
                 if (err) {
                     reject(err);
                 } else {

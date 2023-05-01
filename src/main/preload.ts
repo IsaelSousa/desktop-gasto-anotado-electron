@@ -3,7 +3,7 @@ import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
 type Gastos = 'getData' | 'insertData' | 'updateData' | 'editData' | 'deleteData';
 type Annotations = 'getAnnotations' | 'insertAnnotations' | 'deleteAnnotations';
 type ImportAndExport = 'importFile' | 'exportFile';
-type Config = 'showConfigPath' | 'saveConfigPath';
+type Config = 'showConfigPath' | 'saveConfigPath' | 'Log';
 
 export type Channels = Gastos | Annotations | ImportAndExport | Config;
 
