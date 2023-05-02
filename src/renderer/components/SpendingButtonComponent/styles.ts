@@ -14,6 +14,6 @@ export const ButtonContainer = styled.button`
 
   &:hover {
     cursor: pointer;
-    border: ${colors.primary} solid 3px;
+    border: ${colors.header} solid 3px;
   }
 `

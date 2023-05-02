@@ -19,9 +19,9 @@ export const MonthComponent = (props: MonthProps) => {
                 padding: 12,
                 color: 'white',
                 fontWeight: 'bold',
-                border: 'none'
+                border: 'none',
+                justifyContent: 'space-between'
             }}>
-                {props.label}
                 {!enable ? 
                 <BsArrowUpSquareFill size={20} style={{
                     marginLeft: '1rem'
@@ -30,7 +30,9 @@ export const MonthComponent = (props: MonthProps) => {
                  <BsArrowDownSquareFill size={20} style={{
                     marginLeft: '1rem'
                 }} />
-                 }
+                 }                
+                {props.label}
+                <div></div>
             </ButtonContainer>
             {enable ? <></> : props.children}
         </Container>

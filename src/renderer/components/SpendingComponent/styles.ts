@@ -22,6 +22,8 @@ export const SpendingContainer = styled.div<ContainerProps>`
     border: ${props => props.colorBackground === true ? 'darkgreen solid 2px' : 'black solid 2px'};
   }
 
+  margin-bottom: 2px;
+
   transform: 1s;
 `
 export const SpendingFloatLeft = styled.div<ContainerProps>`

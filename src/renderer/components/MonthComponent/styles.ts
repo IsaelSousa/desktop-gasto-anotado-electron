@@ -6,7 +6,7 @@ export const Container = styled.div`
     width: 100%;
     justify-content: center;
     flex-direction: column;
-    border-bottom: 2px solid ${colors.header}
+    border-bottom: 2px solid ${colors.header};
 `;
 
 export const ButtonContainer = styled.button`
