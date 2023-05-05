@@ -21,6 +21,8 @@ import ConfigComponent from 'renderer/components/ConfigComponent';
 import { ConfigDrawer } from 'renderer/views/Drawer/ConfigDrawer';
 import { toast } from 'react-toastify';
 import { colors } from 'renderer/shared/colors/global.colors';
+import AlertsComponent from 'renderer/components/AlertsComponent';
+import { AlertsDrawer } from 'renderer/views/Drawer/AlertsDrawer';
 
 const HomePage = () => {
   const [toggleAdd, setToggleAdd] = useState<boolean>(false);
@@ -38,7 +40,8 @@ const HomePage = () => {
     loading,
     importDrawer,
     setImportDrawer,
-    setConfigDrawer
+    setConfigDrawer,
+    setAlertsDrawer
   } = useProvider();
 
   useEffect(() => {
@@ -74,6 +77,10 @@ const HomePage = () => {
     setConfigDrawer(true);
   }
 
+  const toggleAlertsButton = () => {
+    setAlertsDrawer(true);
+  }
+
   const refreshButton = () => {
     getDate();
     toast.success('Dados atualizados');
@@ -85,7 +92,9 @@ const HomePage = () => {
 
   const updateDate = async (id: number, bit: number) => {
     window.electron.ipcRenderer.sendMessage('updateData', [id, bit]);
-    getDate();
+    setTimeout(() => {
+      getDate();
+    }, 1000);
   }
 
   const monthItems = (a: number) => data?.filter(d => new Date(d.duedate).getMonth() === a).sort();
@@ -126,6 +135,8 @@ const HomePage = () => {
 
       <EditDrawer />
 
+      <AlertsDrawer />
+
       <ImportDrawer />
 
       <ConfigDrawer />
@@ -138,6 +149,7 @@ const HomePage = () => {
           <GraphComponent onClickAdd={graphButton} />
           <ImportButton onClickAdd={toggleImportDrawer} />
           <ExportButton onClickAdd={toggleExportButton} />
+          <AlertsComponent onClickAdd={toggleAlertsButton} />
           <ConfigComponent onClickAdd={toggleConfigButton} />
         </NavBarContainer>
 

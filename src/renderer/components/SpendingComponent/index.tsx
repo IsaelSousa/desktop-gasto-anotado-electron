@@ -1,5 +1,3 @@
-import React from 'react';
-import ButtonComponent from '../ButtonComponent';
 import { SpendingContainer, SpendingFloatLeft, SpendingFloatRight } from './styles';
 import { AiFillEdit, AiFillCheckCircle } from 'react-icons/ai';
 import { HiAnnotation } from 'react-icons/hi';

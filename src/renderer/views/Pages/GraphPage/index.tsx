@@ -87,18 +87,18 @@ export const GraphPage = () => {
                 }}
             >
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="month" />
+                <XAxis dataKey="month"  />
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="value" fill="#8884d8" />
+                <Bar dataKey="value" fill="#2e6fd9" />
             </BarChart>
         );
     };
 
     return (
         <Container>
-            <h1 style={{ display: 'flex', justifyContent: 'center', paddingTop: 5 }}>
+            <h1 style={{ display: 'flex', justifyContent: 'center', paddingTop: 5, color: 'white' }}>
                 Gráfico
             </h1>
 

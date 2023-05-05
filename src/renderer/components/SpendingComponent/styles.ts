@@ -17,13 +17,11 @@ export const SpendingContainer = styled.div<ContainerProps>`
   background-color: ${props => props.colorBackground === true ? '#2d8524' : props.colorBackground === 'venceu' ? 'red' : '#e9e9e9'};
 
   border: ${props => props.colorBackground === true ? '#2d8524 solid 2px' : props.colorBackground === 'venceu' ? 'darkred solid 2px' : 'gray solid 2px'};
-  cursor: pointer;
   &:hover {
     border: ${props => props.colorBackground === true ? 'darkgreen solid 2px' : 'black solid 2px'};
   }
 
-  margin-bottom: 2px;
-
+  border-bottom: 2px solid black;
   transform: 1s;
 `
 export const SpendingFloatLeft = styled.div<ContainerProps>`

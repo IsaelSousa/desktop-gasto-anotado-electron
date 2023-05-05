@@ -22,6 +22,7 @@ export const DataContainer = styled.div`
   height: calc(100vh - 62px);
   align-items: center;
   flex-direction: column;
+  background-color: ${colors.contentBackground};
 `
 
 export const NavBarContainer = styled.div`

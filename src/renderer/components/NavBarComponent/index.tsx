@@ -9,7 +9,7 @@ type NavBarProps = {
 function NavBarComponent (props: NavBarProps) {
   return (
     <NavBarContainer>
-      <ButtonComponent title='Inserir gastos' buttonIcon={<IoMdAdd color='#FFF' size={25} />} onClick={props.onClickAdd} />
+      <ButtonComponent title='Adicionar' buttonIcon={<IoMdAdd color='#FFF' size={25} />} onClick={props.onClickAdd} />
     </NavBarContainer>
   )
 }

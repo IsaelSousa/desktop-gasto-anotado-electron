@@ -9,7 +9,8 @@ interface ContextProps {
 const initialState: IAnnotations = {
   id: 0,
   idRegister: 0,
-  annotations: ''
+  annotations: '',
+  createdAt: ''
 }
 
 export const Context = createContext<contextType>({} as contextType);
@@ -23,6 +24,7 @@ export const Provider = (props: ContextProps) => {
   const [toggleEdit, setToggleEdit] = useState<boolean>();
   const [toggleAnnotations, setToggleAnnotations] = useState<boolean>();
   const [toggleInsert, setToggleInsert] = useState<boolean>();
+  const [alertsDrawer, setAlertsDrawer] = useState<boolean>();
 
   const [importDrawer, setImportDrawer] = useState<boolean | undefined>(false);
 
@@ -84,25 +86,16 @@ export const Provider = (props: ContextProps) => {
         setDataAnnotations(arg);
       });
       window.electron.ipcRenderer.sendMessage('getAnnotations', [idNumber]);
-      setTimeout(() => {
-        getDate();
-      }, 1500);
   }
 
   const deleteAnnotations = (id: number) => {
     window.electron.ipcRenderer.sendMessage('deleteAnnotations', [id]);
     getAnnotations(id);
-    setTimeout(() => {
-      getDate();
-    }, 1500);
   }
 
   const insertAnnotations = async (idRegister: number, annotations: string) => {
     window.electron.ipcRenderer.sendMessage('insertAnnotations', [idRegister, annotations]);
     getAnnotations(idRegister);
-    setTimeout(() => {
-      getDate();
-    }, 1500);
   }
 
   const deleteData = async (id: number | null) => {
@@ -131,7 +124,9 @@ export const Provider = (props: ContextProps) => {
     importDrawer,
     setImportDrawer,
     configDrawer,
-    setConfigDrawer
+    setConfigDrawer,
+    alertsDrawer,
+    setAlertsDrawer
    }
   
   const actions = {

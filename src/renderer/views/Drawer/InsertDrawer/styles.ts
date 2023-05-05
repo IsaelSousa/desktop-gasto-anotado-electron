@@ -1,5 +1,5 @@
-import { colors } from "renderer/shared/colors/global.colors";
-import styled from "styled-components";
+import { colors } from 'renderer/shared/colors/global.colors';
+import styled from 'styled-components';
 
 export const InputLabel = styled.input`
     background-color: white;
@@ -7,7 +7,6 @@ export const InputLabel = styled.input`
 export const Label = styled.label`
     font-size: 14pt;
     font-weight: bold;
-    color: white;
     margin-top: 20px;
     margin-left: 20px;
     margin-right: 20px;

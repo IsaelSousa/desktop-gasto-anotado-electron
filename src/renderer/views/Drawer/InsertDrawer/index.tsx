@@ -85,7 +85,7 @@ export const InsertDrawer = ({
        }}
     >
       <Container>
-        <Label className='title'>Título</Label>
+        <Label style={{ color: 'white' }} className='title'>Título</Label>
         <InputLabel value={title} onChange={e => setTitle(e.target.value)} className='title' style={{
           width: 400,
           height: 40,
@@ -96,7 +96,7 @@ export const InsertDrawer = ({
           marginBottom: 5
         }} placeholder='Digite o título' />
 
-        <Label className='description'>Descrição</Label>
+        <Label style={{ color: 'white' }} className='description'>Descrição</Label>
         <InputLabel value={description} onChange={e => setDescription(e.target.value)} className='description' style={{
           width: 400,
           height: 40,
@@ -107,7 +107,7 @@ export const InsertDrawer = ({
           marginBottom: 5
         }} placeholder='Digite a descrição' />
 
-        <Label className='value'>Valor</Label>
+        <Label style={{ color: 'white' }} className='value'>Valor</Label>
         <InputLabel value={value} onChange={e => setValue(e.target.value)} type={'number'} className='value' style={{
           width: 400,
           height: 40,
@@ -118,7 +118,7 @@ export const InsertDrawer = ({
           marginBottom: 5
         }} placeholder='Digite o valor' />
 
-        <Label className='duedate'>Vencimento</Label>
+        <Label style={{ color: 'white' }} className='duedate'>Vencimento</Label>
         <InputLabel value={dueDate} onChange={e => setDueDate(e.target.value)} type={'date'} className='duedate' style={{
           width: 400,
           height: 40,
@@ -129,7 +129,7 @@ export const InsertDrawer = ({
           marginBottom: 5
         }} placeholder='Informe o vencimento' />
 
-        <Label className='parc'>Parcelamento</Label>
+        <Label style={{ color: 'white' }} className='parc'>Parcelamento</Label>
         <InputLabel min={0} value={parc} onChange={e => setParc(Number(e.target.value))} type={'number'} className='parc' style={{
           width: 400,
           height: 40,
