@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { BarContainer, Container, NavBarContainer } from './styles';
+import { BarContainer, Container, Header, NavBarContainer } from './styles';
 import { useNavigate } from 'react-router-dom';
 import GoBackComponent from 'renderer/components/GoBackComponent';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie } from 'recharts';
@@ -98,9 +98,11 @@ export const GraphPage = () => {
 
     return (
         <Container>
+            <Header>
             <h1 style={{ display: 'flex', justifyContent: 'center', paddingTop: 5, color: 'white' }}>
                 Gráfico
             </h1>
+            </Header>
 
             <NavBarContainer>
                 <GoBackComponent onClickAdd={goBackButton} />

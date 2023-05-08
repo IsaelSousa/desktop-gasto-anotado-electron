@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import NavBarComponent from '../../../components/NavBarComponent';
-import { HomePageContainer, DataContainer, NavBarContainer, ButtonContainer, DividerContainer, Header, ContentContainer } from './styles';
+import { HomePageContainer, DataContainer, NavBarContainer, ButtonContainer, Header, ContentContainer } from './styles';
 import { DateToString } from '../../../services/DateToString';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from '@mui/material';
 import { DateFormater } from '../../../services/DateFormater';
@@ -21,8 +21,8 @@ import ConfigComponent from 'renderer/components/ConfigComponent';
 import { ConfigDrawer } from 'renderer/views/Drawer/ConfigDrawer';
 import { toast } from 'react-toastify';
 import { colors } from 'renderer/shared/colors/global.colors';
-import AlertsComponent from 'renderer/components/AlertsComponent';
-import { AlertsDrawer } from 'renderer/views/Drawer/AlertsDrawer';
+import ResumComponent from 'renderer/components/AlertsComponent';
+import { ResumDrawer } from 'renderer/views/Drawer/ResumDrawer';
 
 const HomePage = () => {
   const [toggleAdd, setToggleAdd] = useState<boolean>(false);
@@ -135,7 +135,7 @@ const HomePage = () => {
 
       <EditDrawer />
 
-      <AlertsDrawer />
+      <ResumDrawer />
 
       <ImportDrawer />
 
@@ -145,11 +145,11 @@ const HomePage = () => {
 
         <NavBarContainer>
           <NavBarComponent onClickAdd={toggleAddButton} />
+          <ResumComponent onClickAdd={toggleAlertsButton} />
           <RefreshComponent onClickAdd={refreshButton} />
           <GraphComponent onClickAdd={graphButton} />
           <ImportButton onClickAdd={toggleImportDrawer} />
           <ExportButton onClickAdd={toggleExportButton} />
-          <AlertsComponent onClickAdd={toggleAlertsButton} />
           <ConfigComponent onClickAdd={toggleConfigButton} />
         </NavBarContainer>
 

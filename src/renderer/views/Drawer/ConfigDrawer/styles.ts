@@ -15,6 +15,8 @@ export const InputText = styled.input`
     font-size: 12pt;
     padding: 5px;
     border-color: white;
+    background-color: white;
+    color: black;
 `;
 
 export const Title = styled.a`

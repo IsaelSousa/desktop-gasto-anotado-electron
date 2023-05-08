@@ -1,3 +1,4 @@
+import { colors } from 'renderer/shared/colors/global.colors';
 import styled from 'styled-components';
 
 export const Container = styled.div`
@@ -5,12 +6,17 @@ export const Container = styled.div`
     align-items: center;
     flex-direction: column;
     height: 100vh;
+    width: 100%;
+`;
+
+export const Header = styled.div`
+  width: 100%;
+  padding: 10px;
+  background: ${colors.header};
 `;
 
 export const NavBarContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
 `;
 
 export const BarContainer = styled.div`

@@ -37,7 +37,7 @@ function App() {
 export default App;
 
 const Container = styled.div`
-  background-color: ${colors.background};
+  background-color: ${colors.contentBackground};
   width: 100%;
   height: 100%;
 `;

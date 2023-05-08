@@ -8,12 +8,14 @@ export const Header = styled.div`
 
 export const HomePageContainer = styled.div`
   width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+
 `
 
 export const ContentContainer = styled.div`
   display: flex;
   flex-direction: row;
-  height: 100%;
 `;
 
 export const DataContainer = styled.div`
@@ -28,6 +30,8 @@ export const DataContainer = styled.div`
 export const NavBarContainer = styled.div`
   background-color: ${colors.secondary};
   border-right: 2px solid ${colors.header};
+  object-fit: cover;
+  object-position: center;
 `;
 
 export const MonthContainer = styled.div`
