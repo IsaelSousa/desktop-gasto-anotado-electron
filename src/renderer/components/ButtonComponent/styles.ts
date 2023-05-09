@@ -1,22 +1,20 @@
 import styled from 'styled-components'
+import { colors } from '../../shared/colors/global.colors';
 
-interface ContainerProps {
-  painter: string;
-}
-
-export const ButtonContainer = styled.button<ContainerProps>`
+export const ButtonContainer = styled.button`
   display: flex;
-  margin-right: 10px;
   justify-content: center;
-  flex-direction: row;
+  align-items: center;
+  flex-direction: column;
+  width: 100px;
+  height: 100px;
   padding: 10px;
-  border-radius: 10px;
   border: none;
-  background-color: ${props => props.painter};
-  border: ${props => props.painter} solid 2px;
+  background-color: ${colors.secondary};
+  border: ${colors.secondary} solid 3px;
 
   &:hover {
     cursor: pointer;
-    border: black solid 2px;
+    border: ${colors.primary} solid 3px;
   }
 `

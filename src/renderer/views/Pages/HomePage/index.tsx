@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import NavBarComponent from '../../../components/NavBarComponent';
-import { HomePageContainer, DataContainer, NavBarContainer, ButtonContainer, DividerContainer } from './styles';
+import { HomePageContainer, DataContainer, NavBarContainer, ButtonContainer, Header, ContentContainer } from './styles';
 import { DateToString } from '../../../services/DateToString';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from '@mui/material';
 import { DateFormater } from '../../../services/DateFormater';
@@ -16,6 +16,13 @@ import { LoaderComponent } from 'renderer/components/LoaderComponent';
 import { FaFileExport, FaFileImport } from 'react-icons/fa';
 import ButtonComponent from 'renderer/components/ButtonComponent';
 import { ImportDrawer } from 'renderer/views/Drawer/ImportDrawer';
+import { useNavigate } from 'react-router-dom';
+import ConfigComponent from 'renderer/components/ConfigComponent';
+import { ConfigDrawer } from 'renderer/views/Drawer/ConfigDrawer';
+import { toast } from 'react-toastify';
+import { colors } from 'renderer/shared/colors/global.colors';
+import ResumComponent from 'renderer/components/AlertsComponent';
+import { ResumDrawer } from 'renderer/views/Drawer/ResumDrawer';
 
 const HomePage = () => {
   const [toggleAdd, setToggleAdd] = useState<boolean>(false);
@@ -32,12 +39,16 @@ const HomePage = () => {
     setDialog,
     loading,
     importDrawer,
-    setImportDrawer
+    setImportDrawer,
+    setConfigDrawer,
+    setAlertsDrawer
   } = useProvider();
 
   useEffect(() => {
     getDate();
   }, []);
+
+  const navigate = useNavigate();
 
   const uniqueMonthData = () => {
     const uniqueMonth: number[] = []
@@ -59,15 +70,31 @@ const HomePage = () => {
 
   const toggleExportButton = () => {
     window.electron.ipcRenderer.sendMessage('exportFile', []);
+    toast.success('Exportado com sucesso!');
+  }
+
+  const toggleConfigButton = () => {
+    setConfigDrawer(true);
+  }
+
+  const toggleAlertsButton = () => {
+    setAlertsDrawer(true);
   }
 
   const refreshButton = () => {
     getDate();
+    toast.success('Dados atualizados');
+  }
+
+  const graphButton = () => {
+    navigate('/graph')
   }
 
   const updateDate = async (id: number, bit: number) => {
     window.electron.ipcRenderer.sendMessage('updateData', [id, bit]);
-    getDate();
+    setTimeout(() => {
+      getDate();
+    }, 1000);
   }
 
   const monthItems = (a: number) => data?.filter(d => new Date(d.duedate).getMonth() === a).sort();
@@ -94,19 +121,9 @@ const HomePage = () => {
 
   return (
     <HomePageContainer>
-      <h1 style={{ display: 'flex', justifyContent: 'center', paddingTop: 5 }}>Gasto Anotado</h1>
-
-      <NavBarContainer>
-        <NavBarComponent onClickAdd={toggleAddButton} />
-        <RefreshComponent onClickAdd={refreshButton} />
-        <GraphComponent />
-
-        <DividerContainer>
-        </DividerContainer>
-
-        <ImportButton onClickAdd={toggleImportDrawer} />
-        <ExportButton onClickAdd={toggleExportButton} />
-      </NavBarContainer>
+      <Header>
+        <h1 style={{ display: 'flex', justifyContent: 'center', paddingTop: 5, color: 'white' }}>Gasto Anotado</h1>
+      </Header>
 
       <InsertDrawer 
       toggle={toggleAdd}
@@ -118,47 +135,67 @@ const HomePage = () => {
 
       <EditDrawer />
 
+      <ResumDrawer />
+
       <ImportDrawer />
 
-      <DataContainer>
-        {
-          !loading ? uniqueMonthData()?.map((x: number) => (
-            <MonthComponent key={x.toPrecision()} label={DateToString(x + 1)}>
-              {monthItems(x)?.map(a => (
-                <SpendingComponent key={a.id}
-                  title={a.title}
-                  description={a.description}
-                  paidout={a.paidout}
-                  value={a.value}
-                  dueDate={DateFormater(a.duedate)}
-                  onClick={() => paidOut(a.id, a.paidout)}
-                  onClickEdit={() => {
-                    setToggleEdit(true);
-                    setEditDrawer({
-                      id: a.id,
-                      title: a.title,
-                      description: a.description,
-                      value: a.value,
-                      duedate: a.duedate.toString()
-                    });
-                  }}
-                  onClickDelete={() => setDialog({
-                    show: true,
-                    id: a.id
-                  })}
-                  onClickAnnotations={() => {
-                    setToggleAnnotations(true);
-                    setAnnotationsID(a.id);
-                  }}
-                />
-              ))}
-              <h3>Total R$ {calcVALUEs(x)}</h3>
-            </MonthComponent>
-          )) 
-          :
-          <LoaderComponent/>
-        }
-      </DataContainer>
+      <ConfigDrawer />
+
+      <ContentContainer>
+
+        <NavBarContainer>
+          <NavBarComponent onClickAdd={toggleAddButton} />
+          <ResumComponent onClickAdd={toggleAlertsButton} />
+          <RefreshComponent onClickAdd={refreshButton} />
+          <GraphComponent onClickAdd={graphButton} />
+          <ImportButton onClickAdd={toggleImportDrawer} />
+          <ExportButton onClickAdd={toggleExportButton} />
+          <ConfigComponent onClickAdd={toggleConfigButton} />
+        </NavBarContainer>
+
+        <DataContainer>
+          {
+            !loading ? uniqueMonthData()?.map((x: number) => (
+              <MonthComponent key={x.toPrecision()} label={DateToString(x + 1)}>
+                {monthItems(x)?.map(a => (
+                  <SpendingComponent key={a.id}
+                    title={a.title}
+                    description={a.description}
+                    paidout={a.paidout}
+                    value={a.value}
+                    dueDate={DateFormater(a.duedate)}
+                    onClick={() => paidOut(a.id, a.paidout)}
+                    onClickEdit={() => {
+                      setToggleEdit(true);
+                      setEditDrawer({
+                        id: a.id,
+                        title: a.title,
+                        description: a.description,
+                        value: a.value,
+                        duedate: a.duedate.toString()
+                      });
+                    }}
+                    onClickDelete={() => setDialog({
+                      show: true,
+                      id: a.id
+                    })}
+                    onClickAnnotations={() => {
+                      setToggleAnnotations(true);
+                      setAnnotationsID(a.id);
+                    }}
+                  />
+                ))}
+                <h3 style={{
+                  color: 'white',
+                  backgroundColor: colors.secondary,
+                  padding: '5px'
+                }} >Total R$ {calcVALUEs(x)}</h3>
+              </MonthComponent>
+            )) 
+            :
+            uniqueMonthData().length > 0 ? <LoaderComponent/> : <></>
+          }
+        </DataContainer>
       <Dialog open={dialogtitleState.show}>
         <DialogTitle>
           Alerta
@@ -176,6 +213,7 @@ const HomePage = () => {
               id: null
             });
             setToggleEdit(false);
+            toast.success('Registro excluído!');
           }} >Sim</Button>
           <Button onClick={() => setDialog({
             show: false,
@@ -183,6 +221,7 @@ const HomePage = () => {
           })}>Não</Button>
         </DialogActions>
       </Dialog>
+      </ContentContainer>
     </HomePageContainer>
   )
 }
@@ -196,7 +235,7 @@ type ButtonProps = {
 const ImportButton = (props: ButtonProps) => {
   return (
       <ButtonContainer>
-          <ButtonComponent buttonIcon={<FaFileImport color='#FFF' size={25} />} onClick={props.onClickAdd} colorItem='#3eb331' title='Importar Dados' />
+          <ButtonComponent buttonIcon={<FaFileImport color='#FFF' size={25} />} onClick={props.onClickAdd} title='Importar Dados' />
       </ButtonContainer>
   );
 }
@@ -204,7 +243,7 @@ const ImportButton = (props: ButtonProps) => {
 const ExportButton = (props: ButtonProps) => {
   return (
       <ButtonContainer>
-          <ButtonComponent buttonIcon={<FaFileExport color='#FFF' size={25} />} onClick={props.onClickAdd} colorItem='#3eb331' title='Exportar Dados' />
+          <ButtonComponent buttonIcon={<FaFileExport color='#FFF' size={25} />} onClick={props.onClickAdd} title='Exportar Dados' />
       </ButtonContainer>
   );
 }

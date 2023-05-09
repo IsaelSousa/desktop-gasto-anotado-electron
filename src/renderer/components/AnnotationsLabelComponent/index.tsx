@@ -2,21 +2,36 @@ import React from 'react';
 import ButtonComponent from '../ButtonComponent';
 import { Container } from './styles';
 import { BsFillTrashFill } from 'react-icons/bs';
+import AnnotationsSendButtonComponent from '../AnnotationsSendButtonComponent';
+import { DateTimeFormater } from 'renderer/services/DateFormater';
 
 type AnnotationsLabelProps = {
   text: React.ReactNode;
+  date: string;
   onClick: any;
 }
 
-export const AnnotationsLabelComponent = ({ text, onClick }: AnnotationsLabelProps) => {
+export const AnnotationsLabelComponent = ({ text, onClick, date }: AnnotationsLabelProps) => {
   return (
     <div style={{
-      'display': 'flex', 'flexDirection': 'row', 'alignItems': 'center', 'maxWidth': '400px', 'width': '400px'
+      'display': 'flex',
+      'flexDirection': 'row',
+      'alignItems': 'center',
+      'marginBottom': '10px',
+      'backgroundColor': 'lightgray',
+      'padding': '5px',
+      'paddingRight': '10px',
+      'borderRadius': '10px'
     }} >
       <Container>
-        {text}
+        <p style={{ wordBreak: 'break-word' }}>
+          {text}
+        </p>
+        <p style={{ marginTop: '15px', fontSize: '10pt', fontWeight: 'bold' }}>
+          {DateTimeFormater(new Date(date))}
+        </p>
       </Container>
-      <ButtonComponent onClick={onClick} buttonIcon={<BsFillTrashFill color='#FFF' size={15} />} colorItem='#3eb331' />
+      <AnnotationsSendButtonComponent onClick={onClick} buttonIcon={<BsFillTrashFill color='#FFF' size={15} />} title='Apagar' />
     </div>
   );
 }
