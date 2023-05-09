@@ -3,7 +3,18 @@
 ## How to install
 -- Install Desktop Development C++ (Visual Studio Installer).  
 -- yarn or npm install  
--- yarn start or npm run start
 
 ## How to use
-Download this app [Here](https://link-url-here.org)! 
+Execute app in Dev.  
+``
+    yarn start or npm run start
+``  
+Generate package  
+``
+    yarn rebuild or npm run rebuild
+``  
+then  
+``
+    yarn package or npm run package
+``  
+package is save in 'release' path.
