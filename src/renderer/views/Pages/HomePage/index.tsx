@@ -193,7 +193,7 @@ const HomePage = () => {
               </MonthComponent>
             )) 
             :
-            <LoaderComponent/>
+            uniqueMonthData().length > 0 ? <LoaderComponent/> : <></>
           }
         </DataContainer>
       <Dialog open={dialogtitleState.show}>
