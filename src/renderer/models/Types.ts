@@ -11,6 +11,7 @@ export interface IAnnotations {
   id: number;
   idRegister: number;
   annotations: string;
+  createdAt: string;
 }
 
 export interface IDataTypeToEdit {
@@ -46,6 +47,7 @@ export type contextType = {
   loading: boolean;
   importDrawer: boolean | undefined;
   configDrawer: boolean | undefined;
+  alertsDrawer: boolean | undefined;
   getDate: () => Promise<void>;
   editDate: (data: IDataTypeToEdit) => Promise<void>;
   insertAnnotations: (idRegister: number, annotations: string) => Promise<void>;
@@ -60,4 +62,5 @@ export type contextType = {
   setDialog: React.Dispatch<React.SetStateAction<DialogProps>>;
   setImportDrawer: React.Dispatch<React.SetStateAction<boolean | undefined>>;
   setConfigDrawer: React.Dispatch<React.SetStateAction<boolean | undefined>>;
+  setAlertsDrawer: React.Dispatch<React.SetStateAction<boolean | undefined>>;
 }

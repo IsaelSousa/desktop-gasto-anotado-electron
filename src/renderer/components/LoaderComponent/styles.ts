@@ -10,7 +10,7 @@ export const Container = styled.div`
     z-index: 9999;
 
     width: 100%;
-    height: calc(100vh + 100%);
+    height: 100%;
     overflow: auto;
 
     justify-content: center;

@@ -4,17 +4,16 @@ import { colors } from '../../shared/colors/global.colors';
 export const ButtonContainer = styled.button`
   display: flex;
   justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  width: 100px;
-  height: 100px;
+  flex-direction: row;
   padding: 10px;
   border: none;
-  background-color: ${colors.secondary};
-  border: ${colors.secondary} solid 3px;
+  margin-left: 10px;
+  background-color: ${colors.background};
+  border: ${colors.background} solid 3px;
+  border-radius: 20px;
 
   &:hover {
     cursor: pointer;
-    border: ${colors.primary} solid 3px;
+    border: ${colors.header} solid 3px;
   }
 `

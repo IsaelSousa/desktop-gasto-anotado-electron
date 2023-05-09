@@ -10,7 +10,7 @@ class Annotations {
                 const db = new sqlite3.Database(resp);
                 db.serialize(() => {
                     db.run("CREATE TABLE IF NOT EXISTS anotacoes(id INTEGER PRIMARY KEY AUTOINCREMENT, ID_GASTO INTEGER, TITLE VARCHAR(200) NULL, CREATED_AT VARCHAR(200) NULL)");
-                    const query = `SELECT id, ID_GASTO AS idRegister, TITLE AS annotations FROM ANOTACOES WHERE ID_GASTO = '${id}' `;
+                    const query = `SELECT id, ID_GASTO AS idRegister, TITLE AS annotations, CREATED_AT AS createdAt FROM ANOTACOES WHERE ID_GASTO = '${id}' `;
                     db.all(query, (err: any, rows: unknown) => {
                         if (err)
                             reject(err);

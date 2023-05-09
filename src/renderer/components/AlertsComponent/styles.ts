@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const NavBarContainer = styled.div`
+export const AlertsContainer = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: row;

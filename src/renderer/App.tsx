@@ -4,6 +4,7 @@ import { Provider } from './Context/provider'
 import { GraphPage } from './views/Pages/GraphPage';
 import HomePage from './views/Pages/HomePage';
 import { ToastContainer } from 'react-toastify';
+import { colors } from './shared/colors/global.colors';
 
 function App() {
   return (
@@ -36,7 +37,7 @@ function App() {
 export default App;
 
 const Container = styled.div`
-  background-color: #d9d9d9;
-  width: 100vw;
-  height: 100vh;
+  background-color: ${colors.contentBackground};
+  width: 100%;
+  height: 100%;
 `;

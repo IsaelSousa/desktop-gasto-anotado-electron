@@ -9,7 +9,7 @@ type NavBarProps = {
 function ConfigComponent (props: NavBarProps) {
   return (
     <ConfigContainer>
-      <ButtonComponent title='Gráficos' buttonIcon={<BsFillGearFill color='#FFF' size={25} />} colorItem='#3eb331' onClick={props.onClickAdd} />
+      <ButtonComponent title='Configuração' buttonIcon={<BsFillGearFill color='#FFF' size={25} />} onClick={props.onClickAdd} />
     </ConfigContainer>
   )
 }

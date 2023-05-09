@@ -6,12 +6,11 @@ export const ButtonContainer = styled.button`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 100px;
-  height: 100px;
   padding: 10px;
   border: none;
   background-color: ${colors.secondary};
   border: ${colors.secondary} solid 3px;
+  border-radius: 10px;
 
   &:hover {
     cursor: pointer;

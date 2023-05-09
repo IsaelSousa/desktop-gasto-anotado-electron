@@ -1,27 +1,24 @@
-import { Drawer } from "@mui/material";
-import { useEffect, useState } from "react";
-import { IoIosAddCircle } from "react-icons/io";
-import { AnnotationsLabelComponent } from "../../../components/AnnotationsLabelComponent";
-import ButtonComponent from "../../../components/ButtonComponent";
-import { useProvider } from "../../../Context/provider";
-import { IAnnotations } from "../../../models/Types";
-import { InputLabel } from "./styles";
+import { Drawer } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { IoIosAddCircle } from 'react-icons/io';
+import { AnnotationsLabelComponent } from '../../../components/AnnotationsLabelComponent';
+import { useProvider } from '../../../Context/provider';
+import { InputLabel, SendAnnotation, Container } from './styles';
+import AnnotationsSendButtonComponent from 'renderer/components/AnnotationsSendButtonComponent';
+import { Loader } from 'renderer/components/LoaderComponent/styles';
+import { toast } from 'react-toastify';
 
 interface AnnotationsProps {
   annotationsID: number;
 }
 
-const initialState: IAnnotations = {
-  id: 0,
-  idRegister: 0,
-  annotations: ''
-}
 
 export const AnnotationsDrawer = ({
   annotationsID
 }: AnnotationsProps) => {
 
   const [annotationsAdd, setAnnotationsAdd] = useState<string>("");
+  const [load, setLoad] = useState<boolean>(false);
 
   const { 
     deleteAnnotations, 
@@ -47,52 +44,82 @@ export const AnnotationsDrawer = ({
       onClose={() => setToggleAnnotations(false)}
       style={{ padding: 50, maxWidth: 400, width: 400 }}
     >
-      <label style={{ fontWeight: 'bold', marginTop: 20, marginBottom: 5, width: 400, display: 'flex', justifyContent: 'center' }}>Anotações</label>
-      <div style={{ margin: '1rem' }} >
-        {
-          dataAnnotations ? dataAnnotations.map((x, i) => (
-            <div key={i}>
-              <AnnotationsLabelComponent onClick={() => {
-                setTimeout(() => {
-                  getAnnotations(x.idRegister);
-                }, 500);
-                deleteAnnotations(x.id)
-              }} text={x.annotations} />
-            </div>
-          )) :
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '70vh' }} >
-            <p>
-              Vázio!
-            </p>
-          </div>
-        }
-      </div>
-      <div style={{
-        display: 'flex',
-        width: 400,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-around',
-        position: 'fixed',
-        bottom: 20
-      }} >
-        <InputLabel value={annotationsAdd} className='title' style={{
-          width: 400,
-          height: 40,
-          textAlign: 'center',
-          fontSize: 18,
-          marginLeft: 20,
-          marginRight: 20,
-          marginBottom: 5
-        }} placeholder='Digite aqui...' onChange={e => setAnnotationsAdd(e.target.value)} />
-        <ButtonComponent onClick={() => {
-          insertAnnotations(annotationsID, annotationsAdd);
-          setTimeout(() => {
-            getAnnotations(annotationsID);
-          }, 500);
-          setAnnotationsAdd("");
-        }} buttonIcon={<IoIosAddCircle color='#FFF' size={25} />} colorItem='#3eb331' />
-      </div>
+      <Container>
+
+        <label style={{ 
+          fontWeight: 'bold', 
+          marginTop: 20,
+          marginBottom: 5,
+          display: 'flex',
+          justifyContent: 'center',
+          color: 'white'
+           }}>Anotações</label>
+
+        <div style={{ 
+          margin: '10px',
+          overflowY: 'auto',
+          overflowX: 'hidden',
+         }} >
+          <style>
+              {`
+            /* Hide scrollbar */
+            ::-webkit-scrollbar {
+              display: none;
+            }
+          `}
+          </style>
+          {
+            !load ? dataAnnotations.length > 0 ? dataAnnotations.map((x, i) => (
+              <div key={i}>
+                <AnnotationsLabelComponent onClick={() => {
+                  setTimeout(() => {
+                    getAnnotations(x.idRegister);
+                  }, 500);
+                  deleteAnnotations(x.id)
+                }}
+                text={x.annotations} 
+                date={x.createdAt}
+                />
+              </div>
+            )) :
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white' }} >
+              <p>Vázio...</p>
+            </div> :
+            <Loader />
+          }
+        </div>
+        <SendAnnotation>
+          <InputLabel value={annotationsAdd} className='title' style={{
+            width: 400,
+            height: 40,
+            textAlign: 'center',
+            fontSize: 18,
+            marginLeft: 15,
+            marginRight: 20,
+            marginBottom: 5,
+            background: 'white'
+          }} 
+          min={1}
+          placeholder='Digite aqui...' 
+          onChange={e => setAnnotationsAdd(e.target.value)}
+          />
+
+          <AnnotationsSendButtonComponent onClick={() => {
+            if (annotationsAdd) {
+              insertAnnotations(annotationsID, annotationsAdd);
+              setTimeout(() => {
+                setLoad(true);
+                getAnnotations(annotationsID);
+                setLoad(false);
+              }, 500);
+              setAnnotationsAdd("");
+            } else {
+              toast.warning('Campo vázio, digite algo.')
+            }
+          }} buttonIcon={<IoIosAddCircle color='#FFF' size={25} />}
+          title="Adicionar" />
+        </SendAnnotation>
+      </Container>
     </Drawer>
   )
 }

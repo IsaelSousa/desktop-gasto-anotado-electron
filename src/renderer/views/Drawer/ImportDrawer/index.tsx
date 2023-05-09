@@ -33,7 +33,7 @@ export const ImportDrawer = () => {
             }}
             style={{ padding: 50 }}
         >
-            <Container style={{ display: 'flex', marginTop: '5rem', flexDirection: 'column' }}>
+            <Container>
                 <Title>Importar Registros</Title>
                 <input 
                 type="file"

@@ -7,23 +7,21 @@ interface ContainerProps {
 export const SpendingContainer = styled.div<ContainerProps>`
   display: flex;
   flex-direction: row;
-  margin-bottom: 0.25rem;
   padding-left: 20px;
   padding-right: 20px;
   justify-content: space-between;
   align-items: center;
 
-  width: 70vw;
+  width: auto;
   height: 3rem;
   background-color: ${props => props.colorBackground === true ? '#2d8524' : props.colorBackground === 'venceu' ? 'red' : '#e9e9e9'};
-  border-radius: 10px;
 
   border: ${props => props.colorBackground === true ? '#2d8524 solid 2px' : props.colorBackground === 'venceu' ? 'darkred solid 2px' : 'gray solid 2px'};
-  cursor: pointer;
   &:hover {
     border: ${props => props.colorBackground === true ? 'darkgreen solid 2px' : 'black solid 2px'};
   }
 
+  border-bottom: 2px solid black;
   transform: 1s;
 `
 export const SpendingFloatLeft = styled.div<ContainerProps>`

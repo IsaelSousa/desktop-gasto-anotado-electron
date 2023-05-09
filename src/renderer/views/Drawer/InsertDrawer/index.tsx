@@ -2,7 +2,8 @@ import { Drawer } from '@mui/material';
 import React, { useState } from 'react';
 import { useProvider } from '../../../Context/provider';
 import { axiosInstance } from '../../../services/api';
-import { InputLabel } from './styles';
+import { Container, InputLabel, Label } from './styles';
+import { colors } from 'renderer/shared/colors/global.colors';
 
 interface InsertDrawerProps {
   toggle: boolean;
@@ -79,85 +80,88 @@ export const InsertDrawer = ({
       anchor={'right'}
       open={toggle}
       onClose={setToggle}
-      style={{ padding: 50 }}
+      style={{ 
+        padding: 50
+       }}
     >
-      <label style={{ fontWeight: 'bold', marginTop: 20, marginLeft: 20, marginRight: 20, marginBottom: 5 }} className='title'>Título</label>
-      <InputLabel value={title} onChange={e => setTitle(e.target.value)} className='title' style={{
-        width: 400,
-        height: 40,
-        textAlign: 'center',
-        fontSize: 18,
-        marginLeft: 20,
-        marginRight: 20,
-        marginBottom: 5
-      }} placeholder='Digite o título' />
+      <Container>
+        <Label style={{ color: 'white' }} className='title'>Título</Label>
+        <InputLabel value={title} onChange={e => setTitle(e.target.value)} className='title' style={{
+          width: 400,
+          height: 40,
+          textAlign: 'center',
+          fontSize: 18,
+          marginLeft: 20,
+          marginRight: 20,
+          marginBottom: 5
+        }} placeholder='Digite o título' />
 
-      <label style={{ fontWeight: 'bold', marginTop: 20, marginLeft: 20, marginRight: 20, marginBottom: 5 }} className='description'>Descrição</label>
-      <InputLabel value={description} onChange={e => setDescription(e.target.value)} className='description' style={{
-        width: 400,
-        height: 40,
-        textAlign: 'center',
-        fontSize: 18,
-        marginLeft: 20,
-        marginRight: 20,
-        marginBottom: 5
-      }} placeholder='Digite a descrição' />
+        <Label style={{ color: 'white' }} className='description'>Descrição</Label>
+        <InputLabel value={description} onChange={e => setDescription(e.target.value)} className='description' style={{
+          width: 400,
+          height: 40,
+          textAlign: 'center',
+          fontSize: 18,
+          marginLeft: 20,
+          marginRight: 20,
+          marginBottom: 5
+        }} placeholder='Digite a descrição' />
 
-      <label style={{ fontWeight: 'bold', marginTop: 20, marginLeft: 20, marginRight: 20, marginBottom: 5 }} className='value'>Valor</label>
-      <InputLabel value={value} onChange={e => setValue(e.target.value)} type={'number'} className='value' style={{
-        width: 400,
-        height: 40,
-        textAlign: 'center',
-        fontSize: 18,
-        marginLeft: 20,
-        marginRight: 20,
-        marginBottom: 5
-      }} placeholder='Digite o valor' />
+        <Label style={{ color: 'white' }} className='value'>Valor</Label>
+        <InputLabel value={value} onChange={e => setValue(e.target.value)} type={'number'} className='value' style={{
+          width: 400,
+          height: 40,
+          textAlign: 'center',
+          fontSize: 18,
+          marginLeft: 20,
+          marginRight: 20,
+          marginBottom: 5
+        }} placeholder='Digite o valor' />
 
-      <label style={{ fontWeight: 'bold', marginTop: 20, marginLeft: 20, marginRight: 20, marginBottom: 5 }} className='duedate'>Vencimento</label>
-      <InputLabel value={dueDate} onChange={e => setDueDate(e.target.value)} type={'date'} className='duedate' style={{
-        width: 400,
-        height: 40,
-        textAlign: 'center',
-        fontSize: 18,
-        marginLeft: 20,
-        marginRight: 20,
-        marginBottom: 5
-      }} placeholder='Informe o vencimento' />
+        <Label style={{ color: 'white' }} className='duedate'>Vencimento</Label>
+        <InputLabel value={dueDate} onChange={e => setDueDate(e.target.value)} type={'date'} className='duedate' style={{
+          width: 400,
+          height: 40,
+          textAlign: 'center',
+          fontSize: 18,
+          marginLeft: 20,
+          marginRight: 20,
+          marginBottom: 5
+        }} placeholder='Informe o vencimento' />
 
-      <label style={{ fontWeight: 'bold', marginTop: 20, marginLeft: 20, marginRight: 20, marginBottom: 5 }} className='parc'>Parcelamento</label>
-      <InputLabel min={0} value={parc} onChange={e => setParc(Number(e.target.value))} type={'number'} className='parc' style={{
-        width: 400,
-        height: 40,
-        textAlign: 'center',
-        fontSize: 18,
-        marginLeft: 20,
-        marginRight: 20,
-        marginBottom: 5
-      }} placeholder='Parcelamentos (Opcional)' />
+        <Label style={{ color: 'white' }} className='parc'>Parcelamento</Label>
+        <InputLabel min={0} value={parc} onChange={e => setParc(Number(e.target.value))} type={'number'} className='parc' style={{
+          width: 400,
+          height: 40,
+          textAlign: 'center',
+          fontSize: 18,
+          marginLeft: 20,
+          marginRight: 20,
+          marginBottom: 5
+        }} placeholder='Parcelamentos (Opcional)' />
 
-      <button onClick={() => insertData()} style={{
-        width: 400,
-        marginTop: 10,
-        marginLeft: 20,
-        marginRight: 20,
-        marginBottom: 5,
-        height: 40,
-        backgroundColor: 'greenyellow',
-        fontWeight: '900',
-        cursor: 'pointer'
-      }} >Adicionar</button>
+        <button onClick={() => insertData()} style={{
+          width: 400,
+          marginTop: 10,
+          marginLeft: 20,
+          marginRight: 20,
+          marginBottom: 5,
+          height: 40,
+          backgroundColor: 'greenyellow',
+          fontWeight: '900',
+          cursor: 'pointer'
+        }} >Adicionar</button>
 
-      <button onClick={() => ClearData()} style={{
-        width: 400,
-        marginLeft: 20,
-        marginRight: 20,
-        height: 40,
-        backgroundColor: 'greenyellow',
-        fontWeight: '900',
-        cursor: 'pointer'
-      }} >Limpar</button>
-
+        <button onClick={() => ClearData()} style={{
+          width: 400,
+          marginLeft: 20,
+          marginRight: 20,
+          height: 40,
+          backgroundColor: 'greenyellow',
+          fontWeight: '900',
+          cursor: 'pointer'
+        }} >Limpar</button>
+      </Container>
     </Drawer>
   </>
   )
